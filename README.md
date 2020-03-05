@@ -1,7 +1,5 @@
 # Modulating-saliency-maps
-This repository contains two zip archives with
--Image data set
--Gaze recordings
+This repository contains two zip archives, one image data set and one gaze data set
 
 **Image data set**
 
