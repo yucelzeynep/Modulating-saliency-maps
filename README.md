@@ -8,7 +8,7 @@ termed as its functional part. On the other hand, the end-effector, where the ob
 
 As for object types, we consider the following four types. Specifically, we first distinguish two common forms of functional parts as bar-type and loop-type and build one set of images for each type. In addition, another set of images is dedicated to objects without any explicit functional part. Note that, although these object do not have a dedicated handle or grip, they may have with an intuitive location for grasping. The objects are usually containers such as jar, bottle, paper cup etc.  Moreover, a set of vegetable images is collected for representing non-tool graspable objects. 
 
-The set of object types contains the elements {b, l, w, x}, where
+Diffferent object types are collected under different folders {b, l, w, x}, where functional/manipulative characteristics are as follows.
 
 | Folder | Object specifics |
 | --- | --- |
