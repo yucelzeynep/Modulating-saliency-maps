@@ -26,7 +26,7 @@ It is demonstrated through a survey that viewers have quite similar ratings rega
 
 The zip archive gaze.zip contains gaze logs of 31 participants, each of which is a separate folder. 
 
-The folder names are organized as YYYY_MM_DD_HH_A_M, where YYYY_MM_DD_HH represents the year, month, day and hour of the recording, A stands for age range can be either e for 'elderly' and y for 'young adult', and M represents motivation can be either f for 'free-view', u for 'use' and 'p' for push.
+The folder names are organized as YYYY_MM_DD_HH_A_M, where YYYY_MM_DD_HH represents the year, month, day and hour of the recording, A stands for age range and can be either e for 'elderly' and y for 'young adult', and M represents motivation and can be either f for 'free-view', u for 'use' and 'p' for push.
 
 In each folder there are 5 files, 1 file for gaze location estimations and 4 time logs.
 
