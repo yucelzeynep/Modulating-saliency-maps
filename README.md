@@ -8,7 +8,15 @@ termed as its functional part. On the other hand, the end-effector, where the ob
 
 As for object types, we consider the following four types. Specifically, we first distinguish two common forms of functional parts as bar-type and loop-type and build one set of images for each type. In addition, another set of images is dedicated to objects without any explicit functional part. Note that, although these object do not have a dedicated handle or grip, they may have with an intuitive location for grasping. The objects are usually containers such as jar, bottle, paper cup etc.  Moreover, a set of vegetable images is collected for representing non-tool graspable objects. 
 
-The set of object types contains the elements {b, l, w, x}, where b stands for bar-type and l represents loop-type grip objects; and w and x represent objects without explicit grip and non-tools, respectively.
+The set of object types contains the elements {b, l, w, x}, where
+
+b: objects with bar-type grip 
+
+l: object with loop-type grip 
+
+w: objects without any explicit grip 
+
+x: non-tools (i.e. vegetables)
 
 It is demonstrated through a survey that viewers have quite similar ratings regarding their familiarity to the objects irrespective of their age or gender, and there is no peculiar object in the set.
 
