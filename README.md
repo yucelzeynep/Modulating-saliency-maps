@@ -1,5 +1,5 @@
 # Graspable_objects
-Four sets of images with different functional/manipulative characteristics
+Four sets of images depicting objects different functional/manipulative characteristics
 
 This repository contains four sets of images of graspable objects depicted over plain white background. Each set involves 8 gray scale images, collected from the Internet depicting objects with different sorts of functional/manipulative characteristics.
 
