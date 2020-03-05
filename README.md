@@ -10,12 +10,13 @@ As for object types, we consider the following four types. Specifically, we firs
 
 Diffferent object types are collected under different folders {b, l, w, x}, where functional/manipulative characteristics are as follows.
 
-| Folder | Object specifics |
-| --- | --- |
-| b | objects with *bar*-type grip  |
-| l |  objects with *loop*-type grip  |
-| w |  objects *without* any explicit grip   |
-| x |   non-tools (i.e. vegetables)  |
+ b: objects with *bar*-type grip   
+ 
+ l:  objects with *loop*-type grip  
+ 
+ w:  objects *without* any explicit grip   
+ 
+ x:   non-tools (i.e. vegetables)  
 
 It is demonstrated through a survey that viewers have quite similar ratings regarding their familiarity to the objects irrespective of their age or gender, and there is no peculiar object in the set.
 
