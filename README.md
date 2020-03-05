@@ -3,7 +3,7 @@ Four sets of images with different functional/manipulative characteristics
 
 This repository contains four sets of images of graspable objects depicted over plain white background. Each set involves 8 gray scale images, collected from the Internet depicting objects with different sorts of functional/manipulative characteristics.
 
-In describing functional/manipulative characteristics, we rely on definitions by Natraj et al. (2015) (see below for references). Namely, in interpreting tool affordances, the part where humans grasp and operate an object is typically
+In describing functional/manipulative characteristics, we rely on definitions by Natraj et al. (2015). Namely, in interpreting tool affordances, the part where humans grasp and operate an object is typically
 termed as its functional part. On the other hand, the end-effector, where the object realizes its purpose, is often termed as manipulative part. For instance, for a knife, the handle is the functional part and the blade is the manipulative part. 
 
 As for object types, we consider the following four types. Specifically, we first distinguish two common forms of functional parts as bar-type and loop-type and build one set of images for each type. In addition, another set of images is dedicated to objects without any explicit functional part. Note that, although these object do not have a dedicated handle or grip, they may have with an intuitive location for grasping. The objects are usually containers such as jar, bottle, paper cup etc.  Moreover, a set of vegetable images is collected for representing non-tool graspable objects. 
