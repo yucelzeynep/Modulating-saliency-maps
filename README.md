@@ -4,6 +4,7 @@ This repository contains two zip archives with
 -Gaze recordings
 
 **Image data set**
+
 The zip archive images.zip contains four folders, ech of which is a set of 8 images of graspable objects depicted over plain white background. The images are collected from the Internet and include objects with different sorts of functional/manipulative characteristics.
 
 In describing functional/manipulative characteristics, we rely on definitions by Natraj et al. (2015). Namely, in interpreting tool affordances, the part where humans grasp and operate an object is typically
@@ -24,6 +25,7 @@ Diffferent object types are collected under different folders {b, l, w, x}, wher
 It is demonstrated through a survey that viewers have quite similar ratings regarding their familiarity to the objects irrespective of their age or gender, and there is no peculiar object in the set.
 
 **Gaze recording data set**
+
 The zip archive gaze.zip contains gaze logs of 31 participants, each of which is a separate folder. 
 
 The folder names are organized as YYYY_MM_DD_HH_A_M, where YYYY_MM_DD_HH represents the year, month, day and hour of the recording, A stands for age range can be either e for 'elderly' and y for 'young adult', and M represents motivation can be either f for 'free-view', u for 'use' and 'p' for push.
