@@ -12,9 +12,9 @@ The set of object types contains the elements {b, l, w, x}, where
 
 | Folder | Object specifics |
 | --- | --- |
-| b | objects with bar-type grip  |
-| l |  object with loop-type grip  |
-| w |  objects without any explicit grip   |
+| b | objects with *bar*-type grip  |
+| l |  object with *loop*-type grip  |
+| w |  objects *without* any explicit grip   |
 | x |   non-tools (i.e. vegetables)  |
 
 It is demonstrated through a survey that viewers have quite similar ratings regarding their familiarity to the objects irrespective of their age or gender, and there is no peculiar object in the set.
