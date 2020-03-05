@@ -19,7 +19,7 @@ The set of object types contains the elements {b, l, w, x}, where
 
 It is demonstrated through a survey that viewers have quite similar ratings regarding their familiarity to the objects irrespective of their age or gender, and there is no peculiar object in the set.
 
-References
+**References**
 
 Natraj, N., Pella, Y., Borghi, A., and Wheaton, L. (2015). The visual encoding of tool–object affordances.
 Neuroscience 310, 512–527
