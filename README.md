@@ -13,7 +13,7 @@ Diffferent object types are collected under different folders {b, l, w, x}, wher
 | Folder | Object specifics |
 | --- | --- |
 | b | objects with *bar*-type grip  |
-| l |  object with *loop*-type grip  |
+| l |  objects with *loop*-type grip  |
 | w |  objects *without* any explicit grip   |
 | x |   non-tools (i.e. vegetables)  |
 
