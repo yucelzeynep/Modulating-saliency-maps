@@ -1,6 +1,6 @@
 # Modulating-saliency-maps
 This repository contains two zip archives, one image data set and one gaze data set.
-The data sets does not contain any demographic or identifying information regarding the participants. 
+The data sets do not contain any demographic or identifying information regarding the participants. 
 
 **Image data set**
 
