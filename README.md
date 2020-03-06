@@ -33,7 +33,7 @@ In each folder there are 5 files, 1 file for gaze location estimations and 4 tim
 
 The gaze recording file is named as YYYY_MM_DD_HH_MM_SS_mm_gaze.txt, where YYYY_MM_DD_HH is same as above and MM_SS_mm denote the minute, second and millisecond of the recording.
 
-The gaze data in is organized in 3 columns,  where the 1st and 2nd columns include the x- and y- pixels of the estimated gaze location, and the last column is the Unix time stamp in milliseconds. 
+The gaze data is organized in 3 columns,  where the 1st and 2nd columns include the x- and y- pixels of the estimated gaze location, and the last column is the Unix time stamp with millisecond resolution (i.e. 3 digits after decimal point). 
 
 The four time log files include the Unix time stamps in milliseconds for the times, when the images are displayed on the screen and removed from the screen. Specifically, the files are named as YYYY_MM_HH_MM_SS_timelog_T.txt, where  YYYY_MM_HH_MM_SS is same as above and T represents object type, which can be either l for loop-type grip, b for bar-type grip, w for no explicit grip and x for non-tools.
 
