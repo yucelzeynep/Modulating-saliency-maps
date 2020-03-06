@@ -7,8 +7,8 @@ Created on Tue Feb 18 15:12:55 2020
 
 This function gives KOPT cluster center estimates for each image.
 
-In doing that, employs the standard saliency map (with SALIENCY_TYPE above) and
-densely samples this smap, i.e. returning many random points drawn from the samp.
+In doing that, employs the standard saliency map (with SALIENCY_TYPE) and
+densely samples this smap, i.e. returning many random points drawn from it.
 
 It then clusters these points into KOPT clusters. 
 
