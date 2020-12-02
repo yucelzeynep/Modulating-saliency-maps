@@ -4,6 +4,10 @@
 Created on Fri Jan 17 16:52:06 2020
 
 @author: zeynep
+
+This function carries out the analysis necessary to derive the results reported 
+in the section "Reaction to fixation target" in the manuscript, and specifically, 
+the Fig 2 of the manuscript. 
 """
 
 import numpy as np
