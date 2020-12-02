@@ -9,7 +9,6 @@ Created on Thu Jan 16 13:28:18 2020
 IMAGE_PATH = '../../data_to_release/images/'
 RAW_GAZE_PATH = '../data_to_release/gaze/'
 
-
 AGE_FILE_PATH = '../data/ages.txt'
 FAMILIARITY_PATH = '../data/familiarity_ratings/'
 
@@ -18,14 +17,20 @@ ANNOTATION_POLYGON_MANIPULATIVE_DIR = '../data/polygons/manipulative_coder2/'
 
 OUTPUT_DIR = '../data/pickled/'
 INPUT_DIR = '../data/pickled/'
+OUTPUT_DIR_FIG = '../figures/'
 
 
-# functional (handle/grip), manipulative (end effector), neither
-OBJECT_PARTS = [
-'func',\
-'manip',\
-'neither'\
-]
+# f: freeview, u: use, p: push
+MOTIVATIONS =\
+{'f',\
+ 'u',\
+ 'p'\
+ }
+
+AGE_RANGES = {
+'young',\
+'old'\
+}
 
 OBJECT_TYPES = [
 '00_interaction_graspable_functional_manipulative_grip',\
@@ -35,6 +40,12 @@ OBJECT_TYPES = [
 ]
 
 
+# functional (handle/grip), manipulative (end effector), neither
+OBJECT_PARTS = [
+'func',\
+'manip',\
+'neither'\
+]
 
 """
 The participants watched the images of object types in thesame order
@@ -101,17 +112,3 @@ BLANK_IMAGE_FNAME = 'blank.jpeg'
 CENTER_DOT_PX = 960
 CENTER_DOT_PY = 540
 
-
-# f: freeview, u: use, p: push
-MOTIVATIONS =\
-{'f',\
- 'u',\
- 'p'\
- }
-
-T_PROBES = ['t0', 'tm', 'tf']
-
-AGE_RANGES = {
-'young',\
-'old'\
-}

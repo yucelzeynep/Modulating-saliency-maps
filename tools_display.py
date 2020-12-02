@@ -108,19 +108,16 @@ def plot_displacement_hist(ddd, varname):
     plt.legend()
     plt.show()
     
-#    fig_name = 'figures/'+ 'hist_' +varname +'.png'
-#    plt.savefig(fig_name) 
-    
-    
 
 def plot_nsaccade_hists(nsaccades_wrt_age,\
                          nsaccades_wrt_motiv,\
                          nsaccades_wrt_objtype):
     """
-    This function plots the histogram of k-optimum (kopt).
+    This function plots the pdf of k-optimum (kopt).
     
-    kopt is k optimum for k-means clustering computed according to Silhouette
-    method. In our study, kopt can be considered as the number of saccades.
+    kopt is the optimum k for k-means clustering computed according to Silhouette
+    method. I also export the pdf values into a txt file, for using them later 
+    in gnuplot.
     """
         
     ########################################################
@@ -136,8 +133,6 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
         plt.plot(bin_edges[1:], hist,\
                                        label= age_range)
     
-
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
@@ -152,11 +147,6 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.xlabel('Kopt')
     plt.ylabel('N views')
     plt.show()
-    
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nsaccades_wrt_age.png'
-#    plt.savefig(fig_name) 
-
 
         
     ########################################################
@@ -172,13 +162,10 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
         plt.plot(bin_edges[1:], hist,\
                                        label= m )
     
-
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
         data = data.T
-        #here you transpose your data, so to have it in two columns        
         datafile_path = 'figures/nsaccades_wrt_motiv_'  + m + '.txt'
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%f','%f'])
@@ -189,10 +176,7 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.xlabel('Kopt')
     plt.ylabel('N views')
     plt.show()
-    
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nsaccades_wrt_motiv.png'
-#    plt.savefig(fig_name)         
+   
         
 
     ########################################################
@@ -207,13 +191,10 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
         plt.plot(bin_edges[1:], hist,\
                                        label= o.split('_')[-1][0:3] )
     
-
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
         data = data.T
-        #here you transpose your data, so to have it in two columns        
         datafile_path = 'figures/nsaccades_wrt_objtype_'  + o.split('_')[-1][0:3] + '.txt'
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%f','%f'])
@@ -225,11 +206,6 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.ylabel('N views')
     plt.show()
     
-    
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nsaccades_wrt_objtype.png'
-#    plt.savefig(fig_name)             
-
 
     
 def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
@@ -252,12 +228,10 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
                                        label= age_range)
     
 
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
         data = data.T
-        #here you transpose your data, so to have it in two columns        
         datafile_path = 'figures/nfixations_per_cluster_wrt_age_'  + age_range + '.txt'
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%f','%f'])
@@ -269,10 +243,6 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.ylabel('Number of instances')
     plt.show()
     
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nfixations_per_cluster_wrt_age.png'
-#    plt.savefig(fig_name) 
-
 
         
     ########################################################
@@ -287,13 +257,10 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
         plt.plot(bin_edges[1:], hist,\
                                        label= m)
     
-
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
         data = data.T
-        #here you transpose your data, so to have it in two columns        
         datafile_path = 'figures/nfixations_per_cluster_wrt_motiv_'  + m + '.txt'
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%f','%f'])
@@ -304,11 +271,6 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.xlabel('n_saccades')
     plt.ylabel('Number of instances')
     plt.show()
-    
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nfixations_per_cluster_wrt_motiv.png'
-#    plt.savefig(fig_name)         
-#        
 
     ########################################################
     plt.figure()    
@@ -321,13 +283,10 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
         plt.plot(bin_edges[1:], hist,\
                                        label= o.split('_')[-1][0:3] )
     
-
-        # save wrt age
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
         data = data.T
-        #here you transpose your data, so to have it in two columns        
         datafile_path = 'figures/nfixations_per_cluster_wrt_objtype_'  + o.split('_')[-1][0:3] + '.txt'
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%f','%f'])
@@ -339,10 +298,7 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.ylabel('Number of instances')
     plt.show()
     
-    
-#    # +object_type.split('_')[-1][0:3] + 
-#    fig_name = 'figures/nfixations_per_cluster_wrt_objtype.png'
-#    plt.savefig(fig_name)             
+        
 
 def plot_emp_and_synth_pdfs(pdf_synth, pdf_emp, bin_edges_emp):
     
