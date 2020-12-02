@@ -26,16 +26,11 @@ adjusted map.
 """
 
 import cv2
-import numpy as np
 import time
 
 import pickle
 
 import tools_modulation as mtools
-
-from shapely.geometry import Point
-from shapely.geometry.polygon import Polygon
-
 
 from importlib import reload
 

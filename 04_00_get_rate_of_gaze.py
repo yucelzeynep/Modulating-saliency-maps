@@ -14,7 +14,6 @@ the number of samples in each of the following:
 It also reports the results as a figure, arranged for age, motiv etc.
 """
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -28,10 +27,6 @@ reload(preferences)
 
 import constants
 reload(constants)
-
-
-
-
     
 def plot_r_fix_emp_vs_random(r_fix_stats_emp, r_fix_stats_random):
     

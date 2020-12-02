@@ -29,25 +29,25 @@ if __name__ == "__main__":
                       r_fix_wrt_amop_random,\
                       r_fix_wrt_amop_inv] = pickle.load(f)
                 
-    modif_coefs = {}
+    modul_coefs = {}
     for a in constants.AGE_RANGES:
-        modif_coefs[a] = {} 
+        modul_coefs[a] = {} 
         for m in constants.MOTIVATIONS:
-            modif_coefs[a][m] = {} 
+            modul_coefs[a][m] = {} 
             for o in np.sort( preferences.OBJECT_TYPES_INTEREST):
-                modif_coefs[a][m][o] = {} 
+                modul_coefs[a][m][o] = {} 
                 for p in constants.OBJECT_PARTS: 
-                    modif_coefs[a][m][o][p] = 0
+                    modul_coefs[a][m][o][p] = 0
                     
-                    modif_coefs[a][m][o][p] =  \
+                    modul_coefs[a][m][o][p] =  \
                     (np.mean(r_fix_wrt_amop_emp[a][m][o][p]) -\
                      np.mean(r_fix_wrt_amop_random[a][m][o][p])) / \
                      np.mean(r_fix_wrt_amop_random[a][m][o][p])
                      
-    # save modif_coefs
-    fpath = 'pkl_files/modif_coefs.pkl'
+    # save modul_coefs
+    fpath = 'pkl_files/modul_coefs.pkl'
     with open(str(fpath), 'wb') as f:
-        pickle.dump(modif_coefs, f, pickle.HIGHEST_PROTOCOL)                    
+        pickle.dump(modul_coefs, f, pickle.HIGHEST_PROTOCOL)                    
         
     """
     Time elapsed for computing metrics 0.01 sec
