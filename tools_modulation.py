@@ -71,6 +71,34 @@ def init_fmaps_eco_random_inv():
     return fmaps_eco_random_inv
     
     
+def init_rate_of_gaze():
+    """       
+    I have three keys in the dictionary variables as:
+        func
+        manip
+        neither
+    
+    Functional part is the part where humans grasp and operate an object.
+    Manipulative part is the end-effector, where the object realizes its purpose.
+    Neither is outside any of these two polygons.
+    """
+    rate_of_gaze_wrt_age, \
+    rate_of_gaze_wrt_motiv, \
+    rate_of_gaze_wrt_objtype = {}, {}, {}
+    
+    for age_range in constants.AGE_RANGES:        
+        rate_of_gaze_wrt_age[age_range] = {'func': [], 'manip':[], 'neither':[]}
+    
+    for m in constants.MOTIVATIONS:            
+        rate_of_gaze_wrt_motiv[m] = {'func': [], 'manip':[], 'neither':[]}
+        
+    for object_type in np.sort( preferences.OBJECT_TYPES_INTEREST):
+        rate_of_gaze_wrt_objtype[object_type] = {'func': [], 'manip':[], 'neither':[]}
+        
+    return rate_of_gaze_wrt_age, \
+    rate_of_gaze_wrt_motiv, \
+    rate_of_gaze_wrt_objtype
+   
     
 def sample_from_emp_distribution(cdf, bin_edges):
     """
@@ -347,6 +375,8 @@ def get_fixations_ri(image_orig, smap):
     I choose N_FIXATIONS_RANDOM for each image, from the set of all pixels, 
     without replacement (no pixel appears more than once).
     
+    ri stands for random or inv.
+    
     The function can be used to get fixations from smap randomly (i.e. not in 
     the ecological way) or from the complement of smap (smap_inv)
     """
@@ -369,45 +399,15 @@ def get_fixations_ri(image_orig, smap):
     
     temp_fixations = np.unravel_index(inds, (H,W))
     
-    fixations_ri = [] # ri stand for random or inv
+    fixations_ri = [] # ri stands for random or inv
     for (x,y) in zip(temp_fixations[0], temp_fixations[1]):
         fixations_ri.append([y,x])
 
     return fixations_ri
 
 
-    
 
-    
 
-def init_rate_of_gaze():
-    """       
-    I have three keys as:
-        func
-        manip
-        neither
-    
-    Functional part is the part where humans grasp and operate an object.
-    Manipulative part is the end-effector, where the object realizes its purpose.
-    Neither is outside any of these two polygons.
-    """
-    rate_of_gaze_wrt_age, \
-    rate_of_gaze_wrt_motiv, \
-    rate_of_gaze_wrt_objtype = {}, {}, {}
-    
-    for age_range in constants.AGE_RANGES:        
-        rate_of_gaze_wrt_age[age_range] = {'func': [], 'manip':[], 'neither':[]}
-    
-    for m in constants.MOTIVATIONS:            
-        rate_of_gaze_wrt_motiv[m] = {'func': [], 'manip':[], 'neither':[]}
-        
-    for object_type in np.sort( preferences.OBJECT_TYPES_INTEREST):
-        rate_of_gaze_wrt_objtype[object_type] = {'func': [], 'manip':[], 'neither':[]}
-        
-    return rate_of_gaze_wrt_age, \
-    rate_of_gaze_wrt_motiv, \
-    rate_of_gaze_wrt_objtype
-   
 
 def get_rate_of_gaze(myobject,\
                                image_fixations,\
@@ -418,8 +418,8 @@ def get_rate_of_gaze(myobject,\
                                motiv,\
                                object_type):
     """
-    For each fixation, decide which polygon it falls in and count the number of
-    samples for each viewing. 
+    For each fixation, decide which polygon it falls in and then count the number 
+    of samples for each viewing. 
     """
     samples_in_func, samples_in_manip, samples_in_neither = [], [], []
 
@@ -432,7 +432,7 @@ def get_rate_of_gaze(myobject,\
     polygon_manip = Polygon([tuple(temp_poly[0]), tuple(temp_poly[1]),\
                    tuple(temp_poly[2]), tuple(temp_poly[3])])
     
-    # count each point
+    # go through all data points
     for p in image_fixations:
         point = Point(p[0], p[1])
         if polygon_func.contains(point):
@@ -442,8 +442,6 @@ def get_rate_of_gaze(myobject,\
         else:
             samples_in_neither.append( [p[0], p[1]] )
             
-
-    
     rate_of_gaze_wrt_age[age_range]['func'].append ( len(samples_in_func) )
     rate_of_gaze_wrt_age[age_range]['manip'].append ( len(samples_in_manip) )
     rate_of_gaze_wrt_age[age_range]['neither'].append ( len(samples_in_neither) )    
@@ -463,9 +461,7 @@ def get_rate_of_gaze(myobject,\
     rate_of_gaze_wrt_motiv, \
     rate_of_gaze_wrt_objtype
    
-  
-    
-                      
+           
 def get_rate_of_gaze_stats(rate_of_gaze_wrt_sth):
     """
     Get the mean number of fixations in different parts of the image (corresponding
@@ -482,11 +478,8 @@ def get_rate_of_gaze_stats(rate_of_gaze_wrt_sth):
             mean_temp = np.mean( rate_of_gaze_wrt_sth[k][part] ) 
             
             rate_of_gaze_means[k][part] = mean_temp
-       
     
     return rate_of_gaze_means
-    
-    
     
 
 def init_r_fix_mats():
@@ -657,24 +650,24 @@ def get_r_fixation_stats(r_fix_wrt_amop):
 
 def init_supp_maps_eco_random_inv():
     """
-    Init smaps supp and modif
+    Init two smaps: supplemental and modulated
     
     One for each participant
     """            
-    smaps_supp_modif = {}
+    smaps_supp_modulated = {}
     
     for a in (constants.AGE_RANGES):
-        smaps_supp_modif[a] = {}
+        smaps_supp_modulated[a] = {}
         for m in constants.MOTIVATIONS:      
-            smaps_supp_modif[a][m] = {}
+            smaps_supp_modulated[a][m] = {}
             for o in ( constants.OBJECT_TYPES ):                           
-                smaps_supp_modif[a][m][o] = {\
+                smaps_supp_modulated[a][m][o] = {\
                                         'image_fnames': [],\
                                         'supp_map_eco_pos': [],\
                                         'supp_map_random_pos': [],\
                                         'supp_map_neg': []}
     
-    return smaps_supp_modif
+    return smaps_supp_modulated
 
 
 
@@ -721,12 +714,12 @@ def superimpose_maps_f(smap_orig, \
                        modul_coefs, \
                        a, m, o):
     """
-    Scale up manipulative part
-    scale down functional part
+    Appy amplification and attenuation
     
-    Actually up or down is decided by sign of modif_coef 
+    I usually scale up manipulative part, scale down functional part, which is 
+    decided by sign of modul_coefs 
     """           
-    smap_modif = smap_orig.copy().astype(np.float)
+    smap_modulated = smap_orig.copy().astype(np.float)
     
 #    mask_pos = (supp_map_pos>0) * 255    
 #    mask_pos = mask_pos.astype(np.uint8)    
@@ -734,22 +727,22 @@ def superimpose_maps_f(smap_orig, \
 #     # this is usually positive so i call it amplify
 #    coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
 #    
-#    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
+#    smap_modulated[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
 #    coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-#    smap_modif[smap_modif> 255] = 255
+#    smap_modulated[smap_modulated> 255] = 255
                         
     mask_neg = (supp_map_neg>0) * 255    
     mask_neg = mask_neg.astype(np.uint8)    
     
     coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
     
-    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
+    smap_modulated[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
     coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-    smap_modif[smap_modif> 255] = 255
+    smap_modulated[smap_modulated> 255] = 255
    
-    smap_modif = smap_modif.astype(np.uint8)
+    smap_modulated = smap_modulated.astype(np.uint8)
             
-    return smap_modif
+    return smap_modulated
 
 def superimpose_maps_m(smap_orig, \
                        supp_map_pos, \
@@ -760,9 +753,9 @@ def superimpose_maps_m(smap_orig, \
     Scale up manipulative part
     scale down functional part
     
-    Actually up or down is decided by sign of modif_coef 
+    Actually up or down is decided by sign of modul_coef 
     """           
-    smap_modif = smap_orig.copy().astype(np.float)
+    smap_modulated = smap_orig.copy().astype(np.float)
     
     mask_pos = (supp_map_pos>0) * 255    
     mask_pos = mask_pos.astype(np.uint8)    
@@ -770,23 +763,23 @@ def superimpose_maps_m(smap_orig, \
      # this is usually positive so i call it amplify
     coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
     
-    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
+    smap_modulated[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
     coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-    smap_modif[smap_modif> 255] = 255
+    smap_modulated[smap_modulated> 255] = 255
                         
 #    mask_neg = (supp_map_neg>0) * 255    
 #    mask_neg = mask_neg.astype(np.uint8)    
 #    
 #    coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
 #    
-#    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
+#    smap_modulated[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
 #    coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-#    smap_modif[smap_modif> 255] = 255
+#    smap_modulated[smap_modulated> 255] = 255
    
   
-    smap_modif = smap_modif.astype(np.uint8)
+    smap_modulated = smap_modulated.astype(np.uint8)
             
-    return smap_modif
+    return smap_modulated
     
 
 def superimpose_maps_fm(smap_orig, \
@@ -798,7 +791,7 @@ def superimpose_maps_fm(smap_orig, \
     Scale up manipulative part
     scale down functional part
     """           
-    smap_modif = smap_orig.copy().astype(np.float)
+    smap_modulated = smap_orig.copy().astype(np.float)
     
     mask_pos = (supp_map_pos>0) * 255    
     mask_pos = mask_pos.astype(np.uint8)    
@@ -806,22 +799,22 @@ def superimpose_maps_fm(smap_orig, \
      # this is usually positive so i call it amplify
     coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
     
-    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
+    smap_modulated[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
     coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-    smap_modif[smap_modif> 255] = 255
+    smap_modulated[smap_modulated> 255] = 255
                         
     mask_neg = (supp_map_neg>0) * 255    
     mask_neg = mask_neg.astype(np.uint8)    
     
     coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
     
-    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
+    smap_modulated[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
     coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-    smap_modif[smap_modif> 255] = 255
+    smap_modulated[smap_modulated> 255] = 255
    
-    smap_modif = smap_modif.astype(np.uint8)
+    smap_modulated = smap_modulated.astype(np.uint8)
             
-    return smap_modif
+    return smap_modulated
 
 
 
