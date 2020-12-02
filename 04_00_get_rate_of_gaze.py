@@ -5,13 +5,13 @@ Created on Fri Feb 14 00:01:45 2020
 
 @author: zeynep
 
-This function loads the gaze samples recorede from the participnats and counts
+This function loads the gaze samples recorded from the participants and counts
 the number of samples in each of the following:
     functional part
     manipulative part
     neither 
     
-It also reports the reulsts as a figure, arraged for ages and motivations.
+It also reports the results as a figure, arranged for age, motiv etc.
 """
 
 

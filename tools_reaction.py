@@ -22,10 +22,6 @@ reload(preferences)
 import constants
 reload(constants)
 
-
-
-
-
 def init_displacement_between_fixations():
     d_wrt_age = {}
     for age_range in constants.AGE_RANGES:
