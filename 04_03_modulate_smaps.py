@@ -20,7 +20,7 @@ and direclt take the linear combination.
 The other function (modify_smaps_with_eco_inv) 
 computes fixation maps from scratch
 
-This one is just for updating modif_coefs anf trying how the results change.
+This one is just for updating modul_coefs anf trying how the results change.
 """
 
 import numpy as np
@@ -41,16 +41,13 @@ import preferences
 reload(preferences)
 
 
-
-
-    
 if __name__ == '__main__':
     
     start_time = time.time()
         
-    fpath = 'pkl_files/modif_coefs.pkl'
+    fpath = 'pkl_files/modul_coefs.pkl'
     with open(fpath,'rb') as f:
-        modif_coefs = pickle.load(f)
+        modul_coefs = pickle.load(f)
       
     baseline_center_prior = stools.GaussianMask( \
                                      constants.IMAGE_WIDTH, \
@@ -110,37 +107,37 @@ if __name__ == '__main__':
                     smap_eco_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)
                     
                     smap_eco_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)
 
                     smap_eco_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)   
                         
                     smap_random_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)
                     
                     smap_random_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)
 
                     smap_random_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modif_coefs,
+                                                  modul_coefs,
                                                   a,m,o)   
                     
                     fmap_observed_norm = stools.normalize_map(fmap_observed) 
