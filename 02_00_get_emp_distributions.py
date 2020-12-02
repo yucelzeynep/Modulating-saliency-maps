@@ -5,10 +5,10 @@ Created on Fri Nov 13 17:04:48 2020
 
 @author: zeynep
 
-In this file, wesort the values of empirical observations of the variables (e.g. nscaades, displacements
- etc.) into arrays. Some of those arrays distinguish only a single (intrinsic or 
- extrinsic) feature and the others care for every possible combination (of age, 
- motiv, objtype). I then compute the empirical pdfs from those.
+In this file, wesort the values of empirical observations of the variables (e.g. 
+nscaades, displacements etc.) into arrays. Some of those arrays distinguish only
+ a single (intrinsic or extrinsic) feature and the others care for every possible 
+ combination (of age, motiv, objtype). I then compute the empirical pdfs from those.
 
 """
 
