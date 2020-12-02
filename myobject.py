@@ -8,13 +8,12 @@ Created on Mon Jan 20 10:22:57 2020
 This file contains the description of the class MyObject. This data structure 
 contains information, which is not specific to participants. Namely, the size of 
 the object, foreground, background of the images etc. Perhaps, the most important 
-component is the definition of the polygons describing the functional and 
-manipulative parts.
+component is the definition of the baseline saliency map and the polygons describing 
+the functional and manipulative parts.
 """
 import numpy as np
 
 import cv2
-from scipy import ndimage
 
 import tools_fig as tools_fig
 
@@ -92,49 +91,6 @@ class MyObject():
       
             tools_fig.scale_and_display(saliencyMap_static_specres, "STATIC_SPECRES")
             
-    def compute_smap_finegrain(self):
-        """
-        Compute the saliency map with fine grain
-        """
-        saliency_static_finegrain = cv2.saliency.StaticSaliencyFineGrained_create()
-        
-        if preferences.SALIENCIES['FINE_GRAIN']:
-            (success, saliencyMap_static_finegrain) = saliency_static_finegrain.computeSaliency(self.image_orig)
-            saliencyMap_static_finegrain = (saliencyMap_static_finegrain * 255).astype("uint8")
-            
-            self.smap['FINE_GRAIN'] = saliencyMap_static_finegrain                       
-            
-            tools_fig.scale_and_display(saliencyMap_static_finegrain, "FINE_GRAIN")
-            
-    def compute_smap_objectness(self):
-        """
-        Compute the saliency map with objectness
-        """
-        # For this data set, max object detections per image is 1
-        MAX_DETECTIONS = 1 
-        
-        output = []
-        saliency_objnes = cv2.saliency.ObjectnessBING_create()
-        saliency_objnes.setTrainingPath('objectness_trained_model/')
-            
-        if preferences.SALIENCIES['OBJECTNESS']:                    
-            (success, saliencyMap_objness) = saliency_objnes.computeSaliency( self.image_orig )
-            numDetections = saliencyMap_objness.shape[0]
-        
-            # loop over the detections (redundant)
-            for i in range(0, min(numDetections, MAX_DETECTIONS)):
-                	# extract the bounding box coordinates
-                	(startX, startY, endX, endY) = saliencyMap_objness[i].flatten()
-                	
-                	# randomly generate a color for the object and draw it on the image
-                	output = self.image_orig.copy()
-                	color = np.random.randint(0, 255, size=(3,))
-                	color = [int(c) for c in color]
-                	cv2.rectangle(output, (startX, startY), (endX, endY), color, 2)
-                
-            self.smap['OBJECTNESS'] = saliency_objnes
-                
-            tools_fig.scale_and_display(output, 'OBJECTNESS')
             
     def build_saliency_map(self):
         """
@@ -142,12 +98,12 @@ class MyObject():
         Check preferences for the keys to control types of saliency
         """
         self.compute_smap_specres()
-        self.compute_smap_finegrain()
-        self.compute_smap_objectness()
+#        self.compute_smap_finegrain()
+#        self.compute_smap_objectness()
             
     def get_fg_binary(self):
         """
-        the image displayed to the participant is gray scale. but there are 3 
+        The image displayed to the participant is gray scale. but there are 3 
         channels
         """
         
@@ -197,7 +153,8 @@ class MyObject():
                 
         # manipulative
         poly_manip_fname = constants.ANNOTATION_POLYGON_MANIPULATIVE_DIR + self.image_fname.replace('.jpeg', '_halfsize.txt')
-	# polygons are annotated on half-size images so scale back
+	    
+        # polygons are annotated on half-size images so scale back
         poly_manip =  np.multiply( \
                                   np.loadtxt(\
                                              poly_manip_fname, \
@@ -206,11 +163,3 @@ class MyObject():
         self.polygon_manipulative = poly_manip
             
                
-            
-            
-            
-        
-        
-        
-        
-        
