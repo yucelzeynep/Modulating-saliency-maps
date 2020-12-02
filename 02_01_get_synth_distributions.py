@@ -22,12 +22,7 @@ reload(preferences)
 import constants
 reload(constants)
 
-N_RANDOM_SAMPLES = 100
-NBINS_LOG = 30 # number of bins in histogram of log of dist
 
-
-
-    
 
     
 if __name__ == "__main__":
@@ -72,7 +67,7 @@ if __name__ == "__main__":
          dy_wrt_age_motiv_objtype]= pickle.load(f)                        
     """
     For building empirical pdf,
-    first get histograms
+    first get histograms and then scale them properly
     """
     
     pdf_emp_nsaccades, bin_edges_emp_nsaccades = rtools.get_pdfs_emp(nsaccades_wrt_age_motiv_objtype, myrange = (0,10), mybins= 0)
@@ -80,7 +75,6 @@ if __name__ == "__main__":
     
     pdf_emp_nfixations, bin_edges_emp_nfixations = rtools.get_pdfs_emp(nfixations_per_cluster_wrt_age_motiv_objtype, 0, 0)
     cdf_emp_nfixations = rtools.get_cdf_emp(pdf_emp_nfixations)
-    
     
     d_wrt_age_motiv_objtype, dx_wrt_age_motiv_objtype, dy_wrt_age_motiv_objtype = \
     rtools.preprocess_displacement(d_wrt_age_motiv_objtype), \
@@ -95,13 +89,13 @@ if __name__ == "__main__":
     rtools.get_log_displacement(dy_wrt_age_motiv_objtype)
     
     pdf_emp_d_log_wrt_age_motiv_objtype, bin_edges_emp_d_wrt_age_motiv_objtype = \
-    rtools.get_pdfs_emp(d_log_wrt_age_motiv_objtype, myrange =0, mybins = NBINS_LOG)
+    rtools.get_pdfs_emp(d_log_wrt_age_motiv_objtype, myrange =0, mybins = preferences.NBINS_LOG)
     
     pdf_emp_dx_log_wrt_age_motiv_objtype, bin_edges_emp_dx_wrt_age_motiv_objtype = \
-    rtools.get_pdfs_emp(dx_log_wrt_age_motiv_objtype, myrange =0, mybins = NBINS_LOG)
+    rtools.get_pdfs_emp(dx_log_wrt_age_motiv_objtype, myrange =0, mybins = preferences.NBINS_LOG)
     
     pdf_emp_dy_log_wrt_age_motiv_objtype, bin_edges_emp_dy_wrt_age_motiv_objtype = \
-    rtools.get_pdfs_emp(dy_log_wrt_age_motiv_objtype, myrange =0, mybins = NBINS_LOG)    
+    rtools.get_pdfs_emp(dy_log_wrt_age_motiv_objtype, myrange =0, mybins = preferences.NBINS_LOG)    
     
     (cdf_d_wrt_age_motiv_objtype, cdf_dx_wrt_age_motiv_objtype, cdf_dy_wrt_age_motiv_objtype) = \
     rtools.get_cdf_emp(pdf_emp_d_log_wrt_age_motiv_objtype), \
@@ -135,19 +129,19 @@ if __name__ == "__main__":
     """
     Sample random points (n_clusters)
     """
-    random_samples_nsaccades = rtools.sample_from_emp_distribution(cdf_emp_nsaccades, bin_edges_emp_nsaccades, N_RANDOM_SAMPLES)
-    random_samples_nfixations = rtools.sample_from_emp_distribution(cdf_emp_nfixations, bin_edges_emp_nfixations, N_RANDOM_SAMPLES)
+    random_samples_nsaccades = rtools.sample_from_emp_distribution(cdf_emp_nsaccades, bin_edges_emp_nsaccades, preferences.N_RANDOM_SAMPLES)
+    random_samples_nfixations = rtools.sample_from_emp_distribution(cdf_emp_nfixations, bin_edges_emp_nfixations, preferences.N_RANDOM_SAMPLES)
 
 
     random_samples_d_log_wrt_age_motiv_objtype, random_samples_dx_log_wrt_age_motiv_objtype, random_samples_dy_log_wrt_age_motiv_objtype = rtools.sample_from_emp_distribution_log_displacement(\
                                  cdf_d_wrt_age_motiv_objtype, bin_edges_emp_d_wrt_age_motiv_objtype,\
                                  cdf_dx_wrt_age_motiv_objtype, bin_edges_emp_dx_wrt_age_motiv_objtype,\
                                  cdf_dy_wrt_age_motiv_objtype, bin_edges_emp_dy_wrt_age_motiv_objtype,\
-                                 N_RANDOM_SAMPLES)
+                                 preferences.N_RANDOM_SAMPLES)
 
     """
     For building synthetic pdf,
-    first get histograms
+    first get histograms and then scale properly
     """
     pdf_synth_nsaccades = rtools.get_synth_pdf(random_samples_nsaccades, bin_edges_emp_nsaccades)
     pdf_synth_nfixations = rtools.get_synth_pdf(random_samples_nfixations, bin_edges_emp_nfixations)

@@ -42,8 +42,18 @@ NMAX_FIXATIONS = 100
 PERSON_MIN_AGE = 30
 PERSON_MAX_AGE = 100
 
-
 OBJECT_SIZE_BIN_SIZE = 250*10**3
+
+"""
+When I sample from the empirical distributions, I sample N_RANDOM_SAMPLES many
+data points. 
+
+NBINS_LOG is used while building an empirical histogram of the log of the 
+displacement. 
+
+"""
+N_RANDOM_SAMPLES = 100
+NBINS_LOG = 30 # number of bins in histogram of log of dist
 
 """
 As baseline saliency, in the manuscript we report only spectral residual. But 

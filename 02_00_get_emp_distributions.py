@@ -6,8 +6,6 @@ Created on Fri Nov 13 17:04:48 2020
 @author: zeynep
 """
 
-
-import numpy as np
 import matplotlib.pyplot as plt
 
 import tools_reaction as rtools
