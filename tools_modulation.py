@@ -23,17 +23,17 @@ reload(preferences)
     
 def init_fixations_eco_random_inv():
     """
-    I generate 3 kinds of fixation patterns: eclogical, random and from the 
-    complementary map.
+    I generate 3 kinds of fixation patterns: ecological, random and the ones 
+    from the complementary map.
     
     Ecological refers to the fact that the fixations resemble those of a human, 
     i.e. subject to saccadic movements as well.
     
-    Random is simply a arbitrary pixel drawn from a 2D pdf, whcih is approximated 
+    Random is simply an arbitrary pixel drawn from a 2D pdf, which is approximated 
     based on the saliency map. 
     
     Inverse is the same as the above, but the approximating function is the 
-    complement of that.
+    complement of the previous.
     """
     fixations_eco_random_inv = {}
     
@@ -53,8 +53,8 @@ def init_fixations_eco_random_inv():
 def init_fmaps_eco_random_inv():
     """
     This function loads the fixation patterns saved in the data structure (initialized
-    as above in init_fixations_eco_random_inv ) and build a variable with the 
-    same structure involving the fixation maps. 
+    as above in init_fixations_eco_random_inv) and build a variable with the same
+    structure involving the fixation maps. 
     """
     fmaps_eco_random_inv = {}
     
@@ -77,7 +77,7 @@ def sample_from_emp_distribution(cdf, bin_edges):
     Inverse transform sampling (also known as inversion sampling, the inverse 
     probability integral transform, the inverse transformation method, Smirnov 
     transform, universality of the uniform, or the golden rule[1]) is a basic 
-    method for pseudo-random number sampling, i.e., for generating sample 
+    method for pseudo-random number sampling, i.e. for generating sample 
     numbers at random from any probability distribution given its cumulative 
     distribution function. 
     """
@@ -116,8 +116,8 @@ def get_nsaccades_nfixations(a,m,o,\
                              cdf_emp_nfixations, \
                              bin_edges_emp_nfixations):
     """  
-    This functions generates a sequnece os fixations which mimic the ecological 
-    fixatiosn (of a human).
+    This functions generates a sequence of fixations, which mimic the ecological 
+    fixations (of a human).
     
     I sample N_SAMPLING_MAX times nsaccades_eco, and then I sample as many 
     nfixations_eco as nsaccades_eco.
@@ -166,7 +166,7 @@ def get_nsaccades_nfixations(a,m,o,\
         temp_ntot_fixations.append(ntot_fixations)
         
     """
-    Which cobination (ns+nf) give the closest number to 250?
+    Which combination (ns+nf) give the closest number to 250?
     Careful with the absolute value
     """
     temp_diff_with_250 = [x - 250 for x in temp_ntot_fixations]
@@ -190,8 +190,8 @@ def get_indices_on_a_circle(current_fixation,\
     displacement_between_fixations_estimation. So I get the indices of all 
     pixels satisfying this condition.
     
-    I will use another function to choose the next fixation. that will be the 
-    location with highest saliency over this circle. 
+    I will use another function to choose the next fixation. That will be the 
+    location with highest saliency over the circle with that radius. 
     """
     x = np.arange(0, constants.IMAGE_WIDTH)
     y = np.arange(0, constants.IMAGE_HEIGHT)
@@ -282,12 +282,12 @@ def get_fixations_eco(myobject, cluster_center_candidates, image_fname,
     Then, I start from the cluster center with highest saliency in the list as 
     the initial fixation. 
     
-    Later, I sample from empirical distribution of logarithm of displacement.
-     and take inverse logarithm. 
+    Later, I sample from empirical distribution of logarithm of displacement, and
+    take inverse logarithm. 
     
     I start moving from the cluster center to another pixel that lies in a 
-    distance of displacement_between_fixations_eco. After visint that pixel, I 
-    apply inhibition of return on the saliency map, so that that pixel will not
+    distance of displacement_between_fixations_eco. After visiting that pixel, 
+    I apply inhibition of return on the saliency map, so that that pixel will not
     be visited again.
     
     I keep on sampling a displacement_between_fixations_eco and moving to a 
@@ -718,7 +718,7 @@ def get_supp_maps(fixations_eco_masked, fixations_random_masked, fixations_inv_m
 def superimpose_maps_f(smap_orig, \
                        supp_map_pos, \
                        supp_map_neg,\
-                       modif_coefs, \
+                       modul_coefs, \
                        a, m, o):
     """
     Scale up manipulative part
@@ -732,7 +732,7 @@ def superimpose_maps_f(smap_orig, \
 #    mask_pos = mask_pos.astype(np.uint8)    
 #    
 #     # this is usually positive so i call it amplify
-#    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
+#    coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
 #    
 #    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
 #    coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
@@ -741,7 +741,7 @@ def superimpose_maps_f(smap_orig, \
     mask_neg = (supp_map_neg>0) * 255    
     mask_neg = mask_neg.astype(np.uint8)    
     
-    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
+    coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
     
     smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
     coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
@@ -754,7 +754,7 @@ def superimpose_maps_f(smap_orig, \
 def superimpose_maps_m(smap_orig, \
                        supp_map_pos, \
                        supp_map_neg, \
-                       modif_coefs, \
+                       modul_coefs, \
                        a, m, o):
     """
     Scale up manipulative part
@@ -768,7 +768,7 @@ def superimpose_maps_m(smap_orig, \
     mask_pos = mask_pos.astype(np.uint8)    
     
      # this is usually positive so i call it amplify
-    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
+    coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
     
     smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
     coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
@@ -777,7 +777,7 @@ def superimpose_maps_m(smap_orig, \
 #    mask_neg = (supp_map_neg>0) * 255    
 #    mask_neg = mask_neg.astype(np.uint8)    
 #    
-#    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
+#    coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
 #    
 #    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
 #    coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
@@ -792,7 +792,7 @@ def superimpose_maps_m(smap_orig, \
 def superimpose_maps_fm(smap_orig, \
                         supp_map_pos, \
                         supp_map_neg, \
-                        modif_coefs, \
+                        modul_coefs, \
                         a,m,o):
     """
     Scale up manipulative part
@@ -804,7 +804,7 @@ def superimpose_maps_fm(smap_orig, \
     mask_pos = mask_pos.astype(np.uint8)    
     
      # this is usually positive so i call it amplify
-    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
+    coef_amplify = 1 + np.sign(modul_coefs[a][m][o]['manip']) * modul_coefs[a][m][o]['manip']**2
     
     smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
     coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
@@ -813,7 +813,7 @@ def superimpose_maps_fm(smap_orig, \
     mask_neg = (supp_map_neg>0) * 255    
     mask_neg = mask_neg.astype(np.uint8)    
     
-    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
+    coef_attenuate = 1 + np.sign(modul_coefs[a][m][o]['func']) * modul_coefs[a][m][o]['func']**2
     
     smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
     coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 

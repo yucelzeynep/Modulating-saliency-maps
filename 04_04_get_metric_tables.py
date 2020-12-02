@@ -36,9 +36,6 @@ reload(constants)
 import preferences
 reload(preferences)
 
-
-
-
 def get_perc_imp(f2m, f2o):
     return (np.mean(f2m) - np.mean(f2o)/ np.abs(np.mean(f2o)))*100
 
