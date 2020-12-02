@@ -6,7 +6,7 @@ Created on Mon Jan 20 10:22:57 2020
 @author: zeynep
 
 This file contains the description of the class MyObject. This data structure 
-contains information, which is not specific to participants. Namely, the size of 
+contains information, which is **not specific** to participants. Namely, the size of 
 the object, foreground, background of the images etc. Perhaps, the most important 
 component is the definition of the baseline saliency map and the polygons describing 
 the functional and manipulative parts.
@@ -23,7 +23,6 @@ reload(preferences)
 
 import constants
 reload(constants)
-
 
 class MyObject():
     """

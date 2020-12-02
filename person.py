@@ -3,11 +3,12 @@
 """
 Created on Fri Jan 17 14:47:38 2020
 
-For fixation density map, refer to 
-
-https://github.com/takyamamoto/Fixation-Densitymap
-
 @author: zeynep
+
+This file contains the description of the class Person. This data structure 
+contains information, which is **specific** to participants. Namely, their 
+intrinsic properties (e.g. age, motivation) as well as experimatl data (e.g. gaze 
+samples, fixation maps).
 """
 
 import numpy as np
@@ -16,12 +17,8 @@ import copy
 
 import cv2
 
-import sys
-sys.path.insert(0, '../')# for tools_file etc
-sys.path.insert(0, '../arrange_exp_data')# for person class
-
-import tools_file as tools_file
-import tools_saliency as tools_saliency
+import tools_file as ftools
+import saliency_tools as stools
 import tools_fig as tools_fig
 
 from importlib import reload
@@ -31,7 +28,6 @@ reload(constants)
 
 import preferences
 reload(preferences)
-
 
 class Person():
     """
@@ -76,9 +72,9 @@ class Person():
         self.load_familiarities(participant)
                 
 #        # save person object
-        fpath = constants.OUTPUT_DIR + 'person/' + participant + '.pkl'
-        with open(str(fpath), 'wb') as f:
-            pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
+#        fpath = constants.OUTPUT_DIR + 'person/' + participant + '.pkl'
+#        with open(str(fpath), 'wb') as f:
+#            pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
 
        
         
@@ -144,7 +140,7 @@ class Person():
         """
     
         gaze_path = constants.RAW_GAZE_PATH + participant + '/' 
-        gaze_fname = tools_file.find_file_in_path('*_gaze.txt', gaze_path)[0]
+        gaze_fname = ftools.find_file_in_path('*_gaze.txt', gaze_path)[0]
         gaze_totdur = np.loadtxt(gaze_fname) # gaze over all viewing sessions
         
         """
@@ -154,7 +150,7 @@ class Person():
         Here, t0 is the instant, at which the image is displayed and tf is the 
         instant, at which it is removed. 
         """
-        timelog_fnames = np.sort(tools_file.find_file_in_path('*_timelog.txt', gaze_path))     
+        timelog_fnames = np.sort(ftools.find_file_in_path('*_timelog.txt', gaze_path))     
                 
         for t, timelog_fname in enumerate(timelog_fnames):
             timelog = np.genfromtxt(timelog_fname,\
@@ -182,9 +178,6 @@ class Person():
                     
               
     
-    
-
-    
     def build_fmap(self):
         """
         Build fixation maps (fmap). 
@@ -200,7 +193,7 @@ class Person():
                     
                     
                     # from discrete gaze samples to a distribution
-                    fmap = tools_saliency.Fixpos2Densemap(image_fixation, \
+                    fmap = stools.Fixpos2Densemap(image_fixation, \
                                                           constants.IMAGE_WIDTH, \
                                                           constants.IMAGE_HEIGHT)
                       
@@ -226,12 +219,8 @@ class Person():
                     # for target and blank image, I do not care about fmaps
                     fmap = []
                     
-               
                 self.image[object_type]['fmaps'].append(fmap)
-
-                
-
-                
+               
                 
     def load_familiarities(self, participant):
         """
