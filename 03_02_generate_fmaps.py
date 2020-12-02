@@ -4,16 +4,16 @@
 Created on Tue Feb 18 14:09:19 2020
 
 @author: zeynep
+
+This functions computes fixation maps from gaze samples (ecological, randomly 
+sampled from the baseline maps or their complements).
 """
-import numpy as np
 import pickle
 import time
-
 import cv2
 
 import tools_modulation as mtools
 import tools_saliency as stools
-
 
 from importlib import reload
 import preferences
@@ -28,10 +28,7 @@ if __name__ == "__main__":
     cv2.destroyAllWindows()
            
     for p, participant in enumerate( constants.PARTICIPANTS ) :
-        
-#        if p < 29:
-#            continue
-#        
+               
         print(participant)
         fmaps_eco_random_inv = mtools.init_fmaps_eco_random_inv()
             
