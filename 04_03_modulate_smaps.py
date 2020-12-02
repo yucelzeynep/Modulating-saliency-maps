@@ -4,10 +4,7 @@
 Created on Thu Feb 27 11:54:34 2020
 
 @author: zeynep
-"""
 
-
-"""
 This function modifies the saliency map by:
     attenuating functional region (grasping)
     amplifying manipulative region
