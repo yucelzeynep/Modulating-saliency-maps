@@ -4,6 +4,9 @@
 Created on Thu Nov 19 10:03:43 2020
 
 @author: zeynep
+
+This file contains the functions, which are used in modulation of baseline 
+saliency maps.
 """
 import numpy as np
 import random
@@ -714,7 +717,7 @@ def superimpose_maps_f(smap_orig, \
                        modul_coefs, \
                        a, m, o):
     """
-    Appy amplification and attenuation
+    Appy amplification or attenuation only over **functional** part
     
     I usually scale up manipulative part, scale down functional part, which is 
     decided by sign of modul_coefs 
@@ -750,11 +753,11 @@ def superimpose_maps_m(smap_orig, \
                        modul_coefs, \
                        a, m, o):
     """
-    Scale up manipulative part
-    scale down functional part
+    Appy amplification or attenuation only over **manipulative** part
     
-    Actually up or down is decided by sign of modul_coef 
-    """           
+    I usually scale up manipulative part, scale down functional part, which is 
+    decided by sign of modul_coefs 
+    """            
     smap_modulated = smap_orig.copy().astype(np.float)
     
     mask_pos = (supp_map_pos>0) * 255    
@@ -788,9 +791,12 @@ def superimpose_maps_fm(smap_orig, \
                         modul_coefs, \
                         a,m,o):
     """
-    Scale up manipulative part
-    scale down functional part
-    """           
+    Appy amplification and/or attenuation over both **functional and manipulative** 
+    parts.
+    
+    I usually scale up manipulative part, scale down functional part, which is 
+    decided by sign of modul_coefs 
+    """            
     smap_modulated = smap_orig.copy().astype(np.float)
     
     mask_pos = (supp_map_pos>0) * 255    

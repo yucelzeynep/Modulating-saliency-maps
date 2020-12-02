@@ -32,7 +32,7 @@ def clear_all_files_under_dir(output_dir):
 
 def find_file_in_path(pattern, path):
     """
-    This function finds a file (i.e. filename), that includes a certain pattern 
+    This function finds a file (i.e. file name), that includes a certain pattern 
     e.g. *_gaze.txt under a given path
     """
     result = []
