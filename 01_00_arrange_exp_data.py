@@ -4,6 +4,9 @@
 Created on Fri Jan 17 14:54:20 2020
 
 @author: zeynep
+
+This function loads the raw data concerning gaze samples and object images and 
+arranges them as dictionary variables and prepares them for later processing. 
 """
 import numpy as np 
 import tools_file as tools_file
