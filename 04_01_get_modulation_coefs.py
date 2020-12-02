@@ -4,6 +4,9 @@
 Created on Thu Feb 27 11:30:33 2020
 
 @author: zeynep
+
+This function computes modulation coefficients as described in the section
+"Estimating rate of modulation" of the manuscript.
 """
 import numpy as np
 import time 
