@@ -12,6 +12,7 @@ import random
 import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
+
 from sklearn.metrics import silhouette_score
 
 from importlib import reload

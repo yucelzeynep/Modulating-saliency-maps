@@ -19,11 +19,8 @@ of saliency (i.e. most salienct estimate at the begining of the array) and
 pickled.
 """
 
-import numpy as np
 import pickle
 import time
-
-from sklearn.cluster import KMeans
 
 import tools_reaction as rtools
 
