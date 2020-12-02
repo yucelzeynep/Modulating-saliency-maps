@@ -5,15 +5,11 @@ Created on Mon Feb 17 15:31:28 2020
 
 @author: zeynep
 """
-import numpy as np
 import matplotlib.pyplot as plt
-
 import time
-
+import pickle
 
 import tools_reaction_to_object_image as rtools
-
-import pickle
 
 from importlib import reload
 import preferences
@@ -21,8 +17,6 @@ reload(preferences)
 
 import constants
 reload(constants)
-
-
 
     
 if __name__ == "__main__":
