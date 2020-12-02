@@ -19,7 +19,7 @@ reload(constants)
 
 def clear_all_files_under_dir(output_dir):
     """
-    Clear all files in the output dir recursively 
+    Clear all files in the output_dir recursively 
     (only files, not directories)
     """
         
