@@ -4,6 +4,12 @@
 Created on Fri Nov 13 17:04:48 2020
 
 @author: zeynep
+
+In this file, wesort the values of empirical observations of the variables (e.g. nscaades, displacements
+ etc.) into arrays. Some of those arrays distinguish only a single (intrinsic or 
+ extrinsic) feature and the others care for every possible combination (of age, 
+ motiv, objtype). I then compute the empirical pdfs from those.
+
 """
 
 import matplotlib.pyplot as plt
@@ -182,6 +188,7 @@ if __name__ == "__main__":
                         nfixations_per_cluster_wrt_motiv,\
                         nfixations_per_cluster_wrt_objtype,\
                         nfixations_per_cluster_wrt_age_motiv_objtype] = pickle.load(f)
+            
         fpath = 'pkl_files/displacement_between_fixations_wrt_age_motiv_objtype.pkl'
         with open(fpath,'rb') as f:
             [d_wrt_age,\
