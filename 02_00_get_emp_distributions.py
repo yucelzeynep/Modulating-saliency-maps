@@ -22,9 +22,6 @@ reload(preferences)
 import constants
 reload(constants)
 
-
-
-
     
 if __name__ == "__main__":
     
@@ -41,7 +38,7 @@ if __name__ == "__main__":
     rtools.init_displacement_between_fixations()
        
     
-    if FROM_SCRATCH:
+    if preferences.FROM_SCRATCH:
         """
         if FROM_SCRATCH key is True, 
         do all the calculations from start
@@ -117,7 +114,7 @@ if __name__ == "__main__":
                             dy_wrt_age_motiv_objtype[person.age_range][person.motiv][object_type].extend( dy )
                             
                             
-                            if DISPLAY_PROCESSING:
+                            if preferences.DISPLAY_PROCESSING:
                                 rtools.display_image_with_clusters(myobject, saccades, \
                                                             fixations_unq, \
                                                             k_means_cluster_centers, \
