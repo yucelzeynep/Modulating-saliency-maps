@@ -4,6 +4,15 @@
 Created on Tue Feb 18 14:09:19 2020
 
 @author: zeynep
+
+This file contains generates three kinds of -synthetic- fixations:
+    1. Ecological fixations: these are the ones that try to replicate the 
+    gazing pattern of human subjects, i.e. including the saccadic movements 
+    2. Randomly sampled from smap: These are some random samples which are drawn 
+    from a salinecy map, assuming that it describes a 2D pdf. 
+    3. Randomly sampled from the complement of smap: These are very similar to 
+    the above, but that they consider the underlying pdf to be complement of the 
+    previous one (used in 2.). 
 """
 
 import pickle
