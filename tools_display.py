@@ -39,10 +39,14 @@ def scale_and_display(image_orig, window_title):
 
 def display_image_with_clusters(myobject, saccades, \
                                 fixations_unq, k_means_cluster_centers, k_means_labels):
+    """
+    This function display gaze samples over an object image. Each cluster is 
+    displayed in a different color.
+    """
     
     # random colors
     cluster_colors = [(random.randint(0,255), random.randint(0,255), random.randint(0,255))
-             for i in range(KMAX)]
+             for i in range(preferences.KMAX)]
     
     
     image_temp = myobject.image_orig.copy()
@@ -72,7 +76,10 @@ def display_image_with_clusters(myobject, saccades, \
 
 def plot_displacement_hist(ddd, varname):
     """
-    Plot empirical distribution 
+    This functions plots empirical pdf of displacement. Note that it does not 
+    receive a pdf. It takes the  raw data points and computes the histogram and 
+    scales it to a pfd. It also saves the values of the pdf in a txt file. I use 
+    those in gnuplot.
     """
     plt.figure()
     for k in ddd.keys():
@@ -87,7 +94,6 @@ def plot_displacement_hist(ddd, varname):
                                        label= k.split('_')[-1][0:3]  )
         
 
-        # save 
         data = np.array([bin_edges[1:],\
                          hist\
                          ])
@@ -102,8 +108,8 @@ def plot_displacement_hist(ddd, varname):
     plt.legend()
     plt.show()
     
-    fig_name = 'figures/'+ 'hist_' +varname +'.png'
-    plt.savefig(fig_name) 
+#    fig_name = 'figures/'+ 'hist_' +varname +'.png'
+#    plt.savefig(fig_name) 
     
     
 
@@ -147,9 +153,9 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.ylabel('N views')
     plt.show()
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nsaccades_wrt_age.png'
-    plt.savefig(fig_name) 
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nsaccades_wrt_age.png'
+#    plt.savefig(fig_name) 
 
 
         
@@ -184,9 +190,9 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.ylabel('N views')
     plt.show()
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nsaccades_wrt_motiv.png'
-    plt.savefig(fig_name)         
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nsaccades_wrt_motiv.png'
+#    plt.savefig(fig_name)         
         
 
     ########################################################
@@ -220,9 +226,9 @@ def plot_nsaccade_hists(nsaccades_wrt_age,\
     plt.show()
     
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nsaccades_wrt_objtype.png'
-    plt.savefig(fig_name)             
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nsaccades_wrt_objtype.png'
+#    plt.savefig(fig_name)             
 
 
     
@@ -263,9 +269,9 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.ylabel('Number of instances')
     plt.show()
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nfixations_per_cluster_wrt_age.png'
-    plt.savefig(fig_name) 
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nfixations_per_cluster_wrt_age.png'
+#    plt.savefig(fig_name) 
 
 
         
@@ -299,10 +305,10 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.ylabel('Number of instances')
     plt.show()
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nfixations_per_cluster_wrt_motiv.png'
-    plt.savefig(fig_name)         
-        
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nfixations_per_cluster_wrt_motiv.png'
+#    plt.savefig(fig_name)         
+#        
 
     ########################################################
     plt.figure()    
@@ -334,9 +340,9 @@ def plot_nfixations_per_cluster_hists(nfixations_per_cluster_wrt_age,\
     plt.show()
     
     
-    # +object_type.split('_')[-1][0:3] + 
-    fig_name = 'figures/nfixations_per_cluster_wrt_objtype.png'
-    plt.savefig(fig_name)             
+#    # +object_type.split('_')[-1][0:3] + 
+#    fig_name = 'figures/nfixations_per_cluster_wrt_objtype.png'
+#    plt.savefig(fig_name)             
 
 def plot_emp_and_synth_pdfs(pdf_synth, pdf_emp, bin_edges_emp):
     
