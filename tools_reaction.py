@@ -7,9 +7,7 @@ Created on Wed Nov 11 11:14:31 2020
 """
 
 import numpy as np
-import cv2
 import random
-import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
 
@@ -23,6 +21,10 @@ import constants
 reload(constants)
 
 def init_displacement_between_fixations():
+    """
+    This function initializes one array for each intrinsic or extrinsic feature. 
+    In addition, it initializes another array for every combination of those.
+    """
     d_wrt_age = {}
     for age_range in constants.AGE_RANGES:
         d_wrt_age[age_range] = []
@@ -51,11 +53,11 @@ def init_displacement_between_fixations():
 
 def init_nclusters_nfixations():
     """
-    Initialialize number of clusters (nclusters) and number of fixations per 
-    cluster (nfixations) wrt each age, motivation, object type.
+    This function initializes number of clusters (nclusters) and number of 
+    fixations per cluster (nfixations) wrt each age, motivation, object type.
     
-    The shape is as follows:
-        outarray[age_range][m][object_type] 
+    The shape is outarray[a][m][o],  which is the same as those for other 
+    variables. 
             
     """        
     nsaccades_wrt_age, \
@@ -104,8 +106,8 @@ def init_nclusters_nfixations():
     
 def init_pdf_emp():
     """
-    Initialialize empirical pdf (either nfixations or nsaccades), pdf_emp,
-    contrasting age, motivations, object_type.
+    This function initializes empirical pdf (either nfixations or nsaccades), 
+    pdf_emp, contrasting age, motivations, object_type.
     
     The shape is as follows:
         pdf_emp[age_range][m][object_type] 
