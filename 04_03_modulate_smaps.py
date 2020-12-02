@@ -29,10 +29,8 @@ import time
 import pickle
 
 import tools_saliency as stools
+import tools_modulation as mtools
 
-import sys
-sys.path.insert(0, '../')# for file_tools etc
-sys.path.insert(0, '../arrange_exp_data/')#
 
 from importlib import reload
 
@@ -43,183 +41,6 @@ import preferences
 reload(preferences)
 
 
-
-def init_smaps_supp_modif():
-    """
-    Init smaps supp and modif
-    
-    One for each participant
-    """            
-    smaps_supp_modif = {}
-    
-    for object_type in np.sort( preferences.OBJECT_TYPES_INTEREST):
-                   
-        smaps_supp_modif[object_type] = {\
-                                'image_fnames': [],\
-                                'supp_map_eco_pos': [],\
-                                'supp_map_neg': [],\
-                                'smap_modif_f':[],\
-                                'smap_modif_m':[],\
-                                'smap_modif_fm':[]   }
-    
-    return smaps_supp_modif
-
-def init_metrics():
-    
-    metrics_emp2orig = {}
-    metrics_emp2modif_eco = {}
-    metrics_emp2modif_random = {}
-    
-    for a in constants.AGE_RANGES:
-        metrics_emp2orig[a], metrics_emp2modif_eco[a], metrics_emp2modif_random[a] = \
-            {}, {}, {}
-        for m in constants.MOTIVATIONS:
-            metrics_emp2orig[a][m],metrics_emp2modif_eco[a][m], \
-                metrics_emp2modif_random[a][m] = {}, {}, {}
-            for o in constants.OBJECT_TYPES:
-                metrics_emp2orig[a][m][o],metrics_emp2modif_eco[a][m][o],\
-                    metrics_emp2modif_random[a][m][o] = {}, {}, {}
-                for sm in preferences.SALIENCY_METRICS:
-                    metrics_emp2orig[a][m][o][sm] = []
-                    metrics_emp2modif_eco[a][m][o][sm] = {'f':[], 'm':[],'fm':[]}
-                    metrics_emp2modif_random[a][m][o][sm] = {'f':[], 'm':[],'fm':[]}
-
-    return metrics_emp2orig, metrics_emp2modif_eco, metrics_emp2modif_random
-                    
-
-
-def superimpose_maps_f(smap_orig, \
-                       supp_map_pos, \
-                       supp_map_neg,\
-                       modif_coefs, \
-                       a, m, o):
-    """
-    Scale up manipulative part
-    scale down functional part
-    
-    Actually up or down is decided by sign of modif_coef 
-    """           
-    smap_modif = smap_orig.copy().astype(np.float)
-    
-#    mask_pos = (supp_map_pos>0) * 255    
-#    mask_pos = mask_pos.astype(np.uint8)    
-#    
-#     # this is usually positive so i call it amplify
-#    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
-#    
-#    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
-#    coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-#    smap_modif[smap_modif> 255] = 255
-                        
-    mask_neg = (supp_map_neg>0) * 255    
-    mask_neg = mask_neg.astype(np.uint8)    
-    
-    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
-    
-    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
-    coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-    smap_modif[smap_modif> 255] = 255
-   
-    smap_modif = smap_modif.astype(np.uint8)
-            
-    return smap_modif
-
-def superimpose_maps_m(smap_orig, \
-                       supp_map_pos, \
-                       supp_map_neg, \
-                       modif_coefs, \
-                       a, m, o):
-    """
-    Scale up manipulative part
-    scale down functional part
-    
-    Actually up or down is decided by sign of modif_coef 
-    """           
-    smap_modif = smap_orig.copy().astype(np.float)
-    
-    mask_pos = (supp_map_pos>0) * 255    
-    mask_pos = mask_pos.astype(np.uint8)    
-    
-     # this is usually positive so i call it amplify
-    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
-    
-    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
-    coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-    smap_modif[smap_modif> 255] = 255
-                        
-#    mask_neg = (supp_map_neg>0) * 255    
-#    mask_neg = mask_neg.astype(np.uint8)    
-#    
-#    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
-#    
-#    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
-#    coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-#    smap_modif[smap_modif> 255] = 255
-   
-  
-    smap_modif = smap_modif.astype(np.uint8)
-            
-    return smap_modif
-    
-
-def superimpose_maps_fm(smap_orig, \
-                        supp_map_pos, \
-                        supp_map_neg, \
-                        modif_coefs, \
-                        a,m,o):
-    """
-    Scale up manipulative part
-    scale down functional part
-    """           
-    smap_modif = smap_orig.copy().astype(np.float)
-    
-    mask_pos = (supp_map_pos>0) * 255    
-    mask_pos = mask_pos.astype(np.uint8)    
-    
-     # this is usually positive so i call it amplify
-    coef_amplify = 1 + np.sign(modif_coefs[a][m][o]['manip']) * modif_coefs[a][m][o]['manip']**2
-    
-    smap_modif[mask_pos>0] = (1-coef_amplify)* smap_orig.astype(np.float)[mask_pos>0] + \
-    coef_amplify * supp_map_pos.astype(np.float)[mask_pos>0] 
-    smap_modif[smap_modif> 255] = 255
-                        
-    mask_neg = (supp_map_neg>0) * 255    
-    mask_neg = mask_neg.astype(np.uint8)    
-    
-    coef_attenuate = 1 + np.sign(modif_coefs[a][m][o]['func']) * modif_coefs[a][m][o]['func']**2
-    
-    smap_modif[mask_neg>0] =  (1-coef_attenuate)* smap_orig.astype(np.float)[mask_neg>0] + \
-    coef_attenuate * supp_map_neg.astype(np.float)[mask_neg>0] 
-    smap_modif[smap_modif> 255] = 255
-   
-    smap_modif = smap_modif.astype(np.uint8)
-            
-    return smap_modif
-
-def compute_metric(saliency_metric, smap, fmap, baseline_center_prior):
- 
-    if saliency_metric is 'AUC_JUDD':
-        return stools.auc_judd(smap, fmap)
-    elif saliency_metric is  'AUC_BORJI':
-        return stools.auc_borji(smap, fmap)
-    elif saliency_metric is  'AUC_SHUFF':
-        return stools.auc_shuff(smap, fmap)
-    elif saliency_metric is  'NSS':
-        return stools.nss(smap, fmap)
-    elif saliency_metric is  'INFOGAIN':
-        return stools.infogain(smap, fmap, baseline_center_prior)
-    elif saliency_metric is  'SIM':
-        return stools.similarity(smap, fmap)
-    elif saliency_metric is  'CC':
-        return stools.cc(smap, fmap)
-    elif saliency_metric is  'KLDIV':
-        return stools.kldiv(smap, fmap)
-    else:
-        print('No such metric as ', saliency_metric)
-        return 0
-        
-    
-    
 
 
     
@@ -237,15 +58,13 @@ if __name__ == '__main__':
                                      sigma=int(constants.IMAGE_WIDTH/3))
     
     metrics_emp2orig, metrics_emp2modif_eco,\
-       metrics_emp2modif_random = init_metrics()
+       metrics_emp2modif_random = stools.init_metrics()
     
     for p, participant in enumerate( constants.PARTICIPANTS ) :
         
         print(participant)        
        
-        
-        
-        fpath = constants.INPUT_DIR + 'person/' + participant + '.pkl'
+        fpath =  constants.INPUT_DIR + 'person/' + participant + '.pkl'
         with open(fpath,'rb') as f:
             person = pickle.load(f)
         a = person.age_range
@@ -277,7 +96,7 @@ if __name__ == '__main__':
                     image_fname != constants.BLANK_IMAGE_FNAME:
                         
                     # load myobject
-                    myobject_fpath =  constants.INPUT_DIR + 'images/' + image_fname.replace('jpeg', 'pkl')
+                    myobject_fpath = constants.INPUT_DIR + 'images/' + image_fname.replace('jpeg', 'pkl')
                     with open(myobject_fpath,'rb') as f:
                         myobject = pickle.load(f)
                         
@@ -288,37 +107,37 @@ if __name__ == '__main__':
                     smap_orig = myobject.smap['STATIC_SPECRES']
                     smap_orig_norm = stools.normalize_map(smap_orig) 
                     
-                    smap_eco_modif_f = superimpose_maps_f(smap_orig, \
+                    smap_eco_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
                                                   a,m,o)
                     
-                    smap_eco_modif_m = superimpose_maps_m(smap_orig, \
+                    smap_eco_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
                                                   a,m,o)
 
-                    smap_eco_modif_fm = superimpose_maps_fm(smap_orig, \
+                    smap_eco_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
                                                   a,m,o)   
                         
-                    smap_random_modif_f = superimpose_maps_f(smap_orig, \
+                    smap_random_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
                                                   a,m,o)
                     
-                    smap_random_modif_m = superimpose_maps_m(smap_orig, \
+                    smap_random_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
                                                   a,m,o)
 
-                    smap_random_modif_fm = superimpose_maps_fm(smap_orig, \
+                    smap_random_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
                                                   modif_coefs,
@@ -335,33 +154,28 @@ if __name__ == '__main__':
                     smap_random_modif_fm_norm = stools.normalize_map(smap_random_modif_fm)
                     
                     for sm in preferences.SALIENCY_METRICS:
-                        metrics_emp2orig[a][m][o][sm].append( compute_metric(sm, smap_orig_norm, fmap_observed_norm, baseline_center_prior) )
-                  
-                    
-                    
+                        metrics_emp2orig[a][m][o][sm].append( stools.compute_metric(sm, smap_orig_norm, fmap_observed_norm, baseline_center_prior) )
+                   
                     for sm in preferences.SALIENCY_METRICS:
-                        metrics_emp2modif_eco[a][m][o][sm]['f'].append( compute_metric(sm, smap_eco_modif_f_norm, fmap_observed_norm, baseline_center_prior) )
-                        metrics_emp2modif_eco[a][m][o][sm]['m'].append( compute_metric(sm, smap_eco_modif_m_norm, fmap_observed_norm, baseline_center_prior) )
-                        metrics_emp2modif_eco[a][m][o][sm]['fm'].append( compute_metric(sm, smap_eco_modif_fm_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_eco[a][m][o][sm]['f'].append( stools.compute_metric(sm, smap_eco_modif_f_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_eco[a][m][o][sm]['m'].append( stools.compute_metric(sm, smap_eco_modif_m_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_eco[a][m][o][sm]['fm'].append( stools.compute_metric(sm, smap_eco_modif_fm_norm, fmap_observed_norm, baseline_center_prior) )
 
-                    
-               
                     for sm in preferences.SALIENCY_METRICS:
-                        metrics_emp2modif_random[a][m][o][sm]['f'].append( compute_metric(sm, smap_random_modif_f_norm, fmap_observed_norm, baseline_center_prior) )
-                        metrics_emp2modif_random[a][m][o][sm]['m'].append( compute_metric(sm, smap_random_modif_m_norm, fmap_observed_norm, baseline_center_prior) )
-                        metrics_emp2modif_random[a][m][o][sm]['fm'].append( compute_metric(sm, smap_random_modif_fm_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_random[a][m][o][sm]['f'].append( stools.compute_metric(sm, smap_random_modif_f_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_random[a][m][o][sm]['m'].append( stools.compute_metric(sm, smap_random_modif_m_norm, fmap_observed_norm, baseline_center_prior) )
+                        metrics_emp2modif_random[a][m][o][sm]['fm'].append( stools.compute_metric(sm, smap_random_modif_fm_norm, fmap_observed_norm, baseline_center_prior) )
 
                     
     # save values of saliency metrics
-    fpath = 'pkl_files/metrics_v3.pkl'
+    fpath = 'pkl_files/metrics_v4.pkl'
     with open(str(fpath), 'wb') as f:
         pickle.dump([metrics_emp2orig,\
                      metrics_emp2modif_eco,\
                      metrics_emp2modif_random], f, pickle.HIGHEST_PROTOCOL)      
          
     """
-    Time elapsed 2260.93 sec without judd
-    Time elapsed  27641.15 sec with judd
+    Time elapsed 3491.93 sec    
     """
     elapsed_time = time.time() - start_time
     print('Time elapsed  %2.2f sec' %elapsed_time)
