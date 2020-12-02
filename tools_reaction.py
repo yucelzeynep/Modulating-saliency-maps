@@ -134,7 +134,7 @@ def removeDuplicates(lst):
     
 def get_fixations_unq(fixations):
     """
-    Get unique fixations from oversampled saliency maps
+    This function get unique fixations from oversampled saliency maps.
     
     The dense sampling returns many points (synthetic gaze samples). It is 
     unlikely that any two points are at the same location. But just to be
@@ -151,8 +151,8 @@ def get_fixations_unq(fixations):
         
 def preprocess_displacement_small(dist):
     """
-    Remove inf, -inf, and zeros in the displacement array
-    This is necessary to take log
+    Remove inf, -inf, and zeros in the displacement array, which is necessary 
+    to take the log transformation. 
     """    
    
     # remove inf                
@@ -189,6 +189,11 @@ def preprocess_displacement_small(dist):
 
     
 def preprocess_displacement(d_wrt_age_motiv_objtype):
+    """
+    This function runs the preprocessing subroutine on all arrays corresponding 
+    to different combinations of intrinsic (i.e. age, motiv) and extrinsic 
+    (i.e. objtype) features.
+    """
     
     for a in (constants.AGE_RANGES):
         for m in constants.MOTIVATIONS:   
@@ -199,6 +204,12 @@ def preprocess_displacement(d_wrt_age_motiv_objtype):
 
 
 def preprocess_displacement_wrt_amo(d_wrt_amo):
+    """
+    This function runs the preprocessing subroutine on all arrays arranged 
+    according to a single feature (for instace, grouping based on only age and 
+    paying no regard to motiv or objtype). This kind of array is used only for 
+    illustration purposes. See Fig. 4 of the manuscript.
+    """
     for k in d_wrt_amo.keys():
         d_wrt_amo[k]  = preprocess_displacement_small( d_wrt_amo[k] )
 
@@ -222,8 +233,8 @@ def get_displacement_between_fixations_within_cluster( fixations_unq, \
                                                       k_means_cluster_centers, \
                                                       k_means_labels):
     """
-    Within each cluster, compute the displacement from one fixation to the next, 
-    and build a displacement array
+    This function computes the displacement from one fixation to the next within
+    each cluster,  and builds a displacement array.
     
     I compute also the displacement along x- and y-axes but I never use it.
     """       
@@ -252,7 +263,8 @@ def get_displacement_between_fixations_within_cluster( fixations_unq, \
 
 def find_Kopt_silhouette(saccades):
     """
-    Find optimum K for K-means clustering using the Silhouette method
+    This function finds optimum K for K-means clustering using the Silhouette 
+    method.
     
     From 
     https://medium.com/analytics-vidhya/how-to-determine-the-optimal-k-for-k-means-708505d204eb
@@ -277,7 +289,7 @@ def find_Kopt_silhouette(saccades):
         kopt = np.argmax(sil) + 2
         
     else:
-        print('Too few uniquesaccades: {}. Kopt = 1'.format(len(fixations_unq)))
+        print('Too few unique saccades: {}. Kopt = 1'.format(len(fixations_unq)))
         kopt = 1
     
     return sil, kopt, fixations_unq
@@ -331,20 +343,19 @@ def sort_cluster_centers_wrt_saliency(smap, k_means_cluster_centers):
 
 def get_pdfs_emp(nsf_wrt_age_motiv_objtype, myrange, mybins):
     """
-    get pdf of n_saccades_per_fixation n_saccades_per_fixation
+    This function gets empirical pdf (e.g. of n_saccades_per_fixation).
     
-    shape is same
-    pdf_emp_nfixations[age_range][motiv][object_type]
+    The shape of output is same as others: pdf_emp_nfixations[a][m][o]
     """
     
     pdf_emp_nsf = init_pdf_emp()
     bin_edges_emp_nsf = init_pdf_emp()
 
-    for ai, age_range in enumerate(constants.AGE_RANGES):
-        for object_type in constants.OBJECT_TYPES:        
+    for ai, a in enumerate(constants.aS):
+        for o in constants.OBJECT_TYPES:        
             for mi, m in enumerate( constants.MOTIVATIONS ):
             
-                temp = np.hstack(nsf_wrt_age_motiv_objtype[age_range][m][object_type])
+                temp = np.hstack(nsf_wrt_age_motiv_objtype[a][m][o])
 
                 if mybins == 0:
                     # if it is not defined use 10
@@ -360,14 +371,14 @@ def get_pdfs_emp(nsf_wrt_age_motiv_objtype, myrange, mybins):
                 bin_size = bin_edges[1] - bin_edges[0]
                 pdf = hist / np.sum(hist) / bin_size    
                 
-                pdf_emp_nsf[age_range][m][object_type] = pdf
-                bin_edges_emp_nsf[age_range][m][object_type] = bin_edges
+                pdf_emp_nsf[a][m][o] = pdf
+                bin_edges_emp_nsf[a][m][o] = bin_edges
 
     return pdf_emp_nsf, bin_edges_emp_nsf
 
 def sample_from_smap(image_orig, smap):
     """
-    This function considers smap as a 2d pdf. It randomly samples points from 
+    This function considers smap as a 2D pdf. It randomly samples points from 
     this distribution. These can be considered as synthetic fixations.
     
     The sampling is dense, i.e. I sample too many points. See preferences for 
