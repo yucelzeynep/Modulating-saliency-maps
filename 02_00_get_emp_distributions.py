@@ -22,8 +22,7 @@ reload(preferences)
 import constants
 reload(constants)
 
-FROM_SCRATCH = True
-DISPLAY_PROCESSING = False
+
 
 
     

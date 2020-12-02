@@ -7,6 +7,18 @@ Created on Thu Jan 16 13:34:49 2020
 """
 
 """
+I save some variables which take long time to compute as pkl files, and carry on
+the processing in the subsequent files by simply loading these variables. However,
+if you want to compute from scratch, then you may set the FROM_SCRATCH ket to TRUE.
+
+Similarly, in some cases I keep track of the intermediate results by displaying
+images, graphs etc. If youwant to see these, you may set DISPLAY_PROCESSING to 
+TRUE.
+"""
+FROM_SCRATCH = False
+DISPLAY_PROCESSING = False
+
+"""
 SCALE_PERCENT is for displaying large images, especially many of them on one 
 screen. It is between 0 and 1.
 """
