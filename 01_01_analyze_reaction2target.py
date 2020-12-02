@@ -20,9 +20,6 @@ import constants
 reload(constants)
 
 import time
-
-OUTDIR = 'figures/'
-
     
     
 if __name__ == "__main__":
@@ -90,13 +87,13 @@ if __name__ == "__main__":
     r2center_medians_wrt_objtype = rtools.get_r2center_medians_wrt_objtype(r2center_2d_wrt_objtype)
         
     ###########################################################################
-    fname = 'r2center_medians_v2.pkl'
+    fname = 'pkl_files/r2center_medians_v2.pkl'
     with open(str(fname), 'wb') as f:
         pickle.dump([r2center_2d_wrt_age,\
                      r2center_2d_wrt_motiv,\
                      r2center_2d_wrt_objtype], f, pickle.HIGHEST_PROTOCOL)
     ###########################################################################
-    fname = 'r2center_medians_v2.pkl'
+    fname = 'pkl_files/r2center_medians_v2.pkl'
     with open(fname,'rb') as f:
         [r2center_2d_wrt_age,\
                      r2center_2d_wrt_motiv,\
