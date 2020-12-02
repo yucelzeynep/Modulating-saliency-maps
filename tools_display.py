@@ -5,7 +5,18 @@ Created on Thu Nov 19 00:11:28 2020
 
 @author: zeynep
 """
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import random
 
+from importlib import reload
+
+import constants
+reload(constants)
+
+import preferences
+reload(preferences)
 
 def scale_and_display(image_orig, window_title):
     """
@@ -18,8 +29,8 @@ def scale_and_display(image_orig, window_title):
     else:
         H, W, _ = image_orig.shape
         
-    scaled_height = int( H * SCALE_PERCENT ) 
-    scaled_width = int( W  * SCALE_PERCENT )
+    scaled_height = int( H * preferences.SCALE_PERCENT ) 
+    scaled_width = int( W  * preferences.SCALE_PERCENT )
     DIM = (scaled_width, scaled_height)
     
     image_temp = cv2.resize(image_orig, DIM, interpolation = cv2.INTER_AREA) 
@@ -67,7 +78,7 @@ def plot_displacement_hist(ddd, varname):
     for k in ddd.keys():
         ddd_log  = np.log( ddd[k] ) 
             
-        hist, bin_edges = np.histogram(ddd_log, bins = NBINS_LOG)   
+        hist, bin_edges = np.histogram(ddd_log, bins = preferences.NBINS_LOG)   
         
         bin_size = bin_edges[1] - bin_edges[0]
         hist  = hist / np.sum(hist) / bin_size
