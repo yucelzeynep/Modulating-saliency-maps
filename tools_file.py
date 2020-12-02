@@ -4,9 +4,10 @@
 Created on Fri Jan 17 14:52:06 2020
 
 @author: zeynep
+
+This file contains the fucntions in managing file operations. 
 """
 import os
-import glob
 import fnmatch
 
 import pickle
@@ -15,22 +16,6 @@ import constants
 from importlib import reload
 reload(constants)
 
-def prep_gaze_dir(output_dir):
-    """
-    Clear only gaze pickled files
-    """
-    files = glob.glob(constants.OUTPUT_DIR + 'gaze/' + '/*')
-    for f in files:
-        os.remove(f)
-        
-def prep_images_dir(output_dir):
-    """
-    Clear only image pickled objects
-    """
-    files = glob.glob(constants.OUTPUT_DIR + 'images/' + '/*')
-    for f in files:
-        os.remove(f)
-        
 
 def clear_all_files_under_dir(output_dir):
     """

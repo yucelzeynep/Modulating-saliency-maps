@@ -42,8 +42,8 @@ if __name__ == "__main__":
         
     for p, participant in enumerate( constants.PARTICIPANTS ) :
        
-        if p<10:
-            continue
+#        if p<10:
+#            continue
         
         print(participant)
         fixations_eco_random_inv = mtools.init_fixations_eco_random_inv()
@@ -120,7 +120,7 @@ if __name__ == "__main__":
                 
             print(' ') # just for a new line                
             
-#        output_fname = '../pkl_files/fixations_eco_random_inv/' + participant + '.pkl'
+#        output_fname = 'pkl_files/fixations_eco_random_inv/' + participant + '.pkl'
 #        with open(str(output_fname), 'wb') as f:
 #            pickle.dump(fixations_eco_random_inv, \
 #                        f, pickle.HIGHEST_PROTOCOL)  
