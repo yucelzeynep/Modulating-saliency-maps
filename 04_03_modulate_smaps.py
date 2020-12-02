@@ -23,14 +23,11 @@ computes fixation maps from scratch
 This one is just for updating modul_coefs anf trying how the results change.
 """
 
-import numpy as np
 import time
-
 import pickle
 
 import tools_saliency as stools
 import tools_modulation as mtools
-
 
 from importlib import reload
 

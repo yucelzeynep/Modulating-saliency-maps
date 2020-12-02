@@ -4,23 +4,12 @@
 Created on Thu Feb 27 11:54:34 2020
 
 @author: zeynep
-"""
 
-
-"""
-This function modifies the saliency map by:
-    attenuating functional region (grasping)
-    amplifying manipulative region
-    
-I load the prviously computed fixation maps (supplementary ie supp)
-and also load the moficiation_coefs
-
-and direclt take the linear combination. 
-
-The other function (modify_smaps_with_eco_inv) 
-computes fixation maps from scratch
-
-This one is just for updating modif_coefs anf trying how the results change.
+This function returns the improvement in represing the actual gaze behavior with 
+a saliency map, in terms of a set of saliency metrics. To that end, we find it
+ meaning to give the relative (i.e. percentage) values of improvement than their 
+absolute values. Namely, the metrics are computed in very different ways and a
+direct comparison between them is not possible. 
 """
 
 import numpy as np
@@ -37,6 +26,14 @@ import preferences
 reload(preferences)
 
 def get_perc_imp(f2m, f2o):
+    """
+    This function returns the improvement in terms of a given saliency metric 
+    as a percentage. Here, f2m is the valie of the metric with respect to a 
+    modulated saliency map and f2o is the value of the metric with respect to the
+    original (i.e. baseline) salinecy map. Since the metrics are computed in very 
+    different ways, we found it more meaning to give the relative (i.e. percentage)
+    improvement than absolute value. 
+    """
     return (np.mean(f2m) - np.mean(f2o)/ np.abs(np.mean(f2o)))*100
 
     
