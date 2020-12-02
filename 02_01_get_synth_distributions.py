@@ -134,8 +134,7 @@ if __name__ == "__main__":
                                  preferences.N_RANDOM_SAMPLES)
 
     """
-    For building synthetic pdf,
-    first get histograms and then scale properly
+    Building the pdfs from random samples
     """
     pdf_synth_nsaccades = rtools.get_synth_pdf(random_samples_nsaccades, bin_edges_emp_nsaccades)
     pdf_synth_nfixations = rtools.get_synth_pdf(random_samples_nfixations, bin_edges_emp_nfixations)
