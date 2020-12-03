@@ -19,7 +19,7 @@ import cv2
 
 import tools_file as ftools
 import saliency_tools as stools
-import tools_fig as tools_fig
+import tools_display as dtools
 
 from importlib import reload
 
@@ -211,9 +211,9 @@ class Person():
                     for g in image_fixation:
                         cv2.circle(image_temp, (int(g[0]), int(g[1])), 5, (10,255,25), -1)
                         
-                    tools_fig.scale_and_display(myobject.image_orig, 'image_orig')
-                    tools_fig.scale_and_display(image_temp, 'image_with_fixations')
-                    tools_fig.scale_and_display(fmap, 'fmap')               
+                    dtools.scale_and_display(myobject.image_orig, 'image_orig')
+                    dtools.scale_and_display(image_temp, 'image_with_fixations')
+                    dtools.scale_and_display(fmap, 'fmap')               
                             
                 else:
                     # for target and blank image, I do not care about fmaps

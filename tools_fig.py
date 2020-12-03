@@ -18,29 +18,6 @@ import preferences
 reload(preferences)
 
 
-def scale_and_display(image, window_title):
-    """
-    Scale a (color or gray level) image and display it
-    See preferences for SCALE_PERCENT
-    """
-    # for scaling
-    if len(image.shape) == 2:
-        # gray
-        H, W = image.shape
-    else:
-        # color
-        H, W, _ = image.shape
-        
-    scaled_height = int( H * preferences.SCALE_PERCENT ) 
-    scaled_width = int( W  * preferences.SCALE_PERCENT )
-    DIM = (scaled_width, scaled_height)
-    
-    image_temp = cv2.resize(image, DIM, interpolation = cv2.INTER_AREA) 
-    cv2.imshow(window_title, image_temp)
-    
-    cv2.waitKey(2)
-
-
 def plot_r2center_overall(r2center_stats_overall):
     
     fr, axr = plt.subplots()

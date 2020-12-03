@@ -15,7 +15,7 @@ import numpy as np
 
 import cv2
 
-import tools_fig as tools_fig
+import tools_display as dtools
 
 from importlib import reload
 import preferences
@@ -88,7 +88,7 @@ class MyObject():
             
             self.smap['STATIC_SPECRES'] = saliencyMap_static_specres
       
-            tools_fig.scale_and_display(saliencyMap_static_specres, "STATIC_SPECRES")
+            dtools.scale_and_display(saliencyMap_static_specres, "STATIC_SPECRES")
             
             
     def build_saliency_map(self):
