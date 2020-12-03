@@ -93,8 +93,6 @@ PARTICIPANTS = [\
 '2020_01_20_15_u'\
 ]
 
-
-
 # I display the cropped images in full screen mode on a screen with the 
 # following resolution
 SCREEN_WIDTH = 1920
@@ -102,9 +100,6 @@ SCREEN_HEIGHT = 1080
 IMAGE_WIDTH = 1920
 IMAGE_HEIGHT = 1080
 
-IMAGE_DUR = 2500 # display duration of each image (in msec)
-TARGET_DUR = 1080 # display duration of target screen (in msec)
-BLANK_DUR = 500 # display duration of blank screen (in msec)
 
 TARGET_IMAGE_FNAME = 'target_v4.jpeg' # fixation target image file name
 BLANK_IMAGE_FNAME = 'blank.jpeg'
