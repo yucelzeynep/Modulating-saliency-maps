@@ -67,7 +67,6 @@ SALIENCIES = {
 'OBJECTNESS' : False\
 }
     
-
     
 """
 Standard saliency metrics. Please change the metric of interest by setting the 
@@ -98,19 +97,6 @@ SALIENCY_METRICS = \
  }
     
 BASELINE_SALIENCY_TYPE = 'STATIC_SPECRES'
-
-
-
-DUR_IMAGE = 2500
-DUR_DELTA_TAU = 500
-DUR_WINDOW = 1000
-
-# for shifting time window over fixations
-NSAMPLES_WINDOW = DUR_WINDOW / 1000 * 90 # 400msec * 90 Hz
-NSAMPLES_DELTA_TAU = DUR_DELTA_TAU / 1000 * 90# 200 msec * 90 Hz, shifting window by delta_tau = 200msec at every step
-NSAMPLES_IMAGE = int( DUR_IMAGE / 1000 * 90)
-
-NWINDOWS = int( (NSAMPLES_IMAGE - NSAMPLES_WINDOW/2 ) / NSAMPLES_DELTA_TAU ) 
 
 KMAX = 10 # max number of clusters (ie saccades)
 KOPT_MAX_CLUSTERS = 10 # max number of cluster center candidates
