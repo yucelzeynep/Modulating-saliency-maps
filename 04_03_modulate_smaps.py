@@ -76,7 +76,7 @@ if __name__ == '__main__':
             supp_maps_all = pickle.load(f)     
             
                    
-        for o in preferences.OBJECT_TYPES_INTEREST:
+        for o in constants.OBJECT_TYPES:
             for (image_fname, supp_map_eco_pos, supp_map_random_pos, supp_map_neg) \
              in zip(supp_maps_all[a][m][o]['image_fnames'],\
                     supp_maps_all[a][m][o]['supp_map_eco_pos'],\

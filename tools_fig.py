@@ -6,7 +6,6 @@ Created on Sun Jan 19 14:20:19 2020
 @author: zeynep
 """
 import numpy as np
-import cv2
 import matplotlib.pyplot as plt
 
 from importlib import reload
@@ -132,7 +131,7 @@ def plot_r2center_wrt_objtype(r2center_medians_wrt_objtype):
     mngr = plt.get_current_fig_manager()
     mngr.window.setGeometry(40, 100+int(constants.IMAGE_HEIGHT * preferences.SCALE_PERCENT), 400, 400)
     
-    for o in preferences.OBJECT_TYPES_INTEREST:
+    for o in constants.OBJECT_TYPES:
         
         plt.plot(r2center_medians_wrt_objtype[o], label=o.split('_')[-1][0:3])
 

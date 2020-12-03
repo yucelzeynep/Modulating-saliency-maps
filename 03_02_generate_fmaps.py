@@ -45,7 +45,7 @@ if __name__ == "__main__":
         a = person.age_range
         m = person.motiv
           
-        for o in preferences.OBJECT_TYPES_INTEREST: 
+        for o in constants.OBJECT_TYPES: 
         
             for iii, (image_fname, fixations_random, fixations_eco, fixations_inv)  in enumerate(zip(\
                                               fixations_eco_random_inv[a][m][o]['image_fnames'],\

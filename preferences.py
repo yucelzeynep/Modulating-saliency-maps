@@ -42,8 +42,6 @@ NMAX_FIXATIONS = 100
 PERSON_MIN_AGE = 30
 PERSON_MAX_AGE = 100
 
-OBJECT_SIZE_BIN_SIZE = 250*10**3
-
 """
 When I sample from the empirical distributions, I sample N_RANDOM_SAMPLES many
 data points. 
@@ -69,12 +67,7 @@ SALIENCIES = {
 'OBJECTNESS' : False\
 }
     
-OBJECT_TYPES_INTEREST = [\
-'00_interaction_graspable_functional_manipulative_grip',\
-'01_interaction_graspable_functional_manipulative_handle',\
-'02_interaction_graspable_functional_only',\
-'03_interaction_graspable_nontool',\
-]
+
     
 """
 Standard saliency metrics. Please change the metric of interest by setting the 

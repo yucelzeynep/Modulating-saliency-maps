@@ -37,7 +37,7 @@ if __name__ == "__main__":
         modul_coefs[a] = {} 
         for m in constants.MOTIVATIONS:
             modul_coefs[a][m] = {} 
-            for o in np.sort( preferences.OBJECT_TYPES_INTEREST):
+            for o in np.sort( constants.OBJECT_TYPES):
                 modul_coefs[a][m][o] = {} 
                 for p in constants.OBJECT_PARTS: 
                     modul_coefs[a][m][o][p] = 0

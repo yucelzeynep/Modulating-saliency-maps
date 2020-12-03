@@ -42,7 +42,7 @@ if __name__ == "__main__":
     
     cluster_center_candidates = {}
 
-    for object_type in preferences.OBJECT_TYPES_INTEREST:
+    for object_type in constants.OBJECT_TYPES:
         
         cluster_center_candidates[object_type] = {}
         

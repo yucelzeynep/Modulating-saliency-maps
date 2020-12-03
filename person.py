@@ -183,7 +183,7 @@ class Person():
         Build fixation maps (fmap). 
         """
           
-        for object_type in preferences.OBJECT_TYPES_INTEREST:
+        for object_type in constants.OBJECT_TYPES:
             for image_fname, image_fixation in zip(\
                                                    self.image[object_type]['image_fnames'], \
                                                    self.image[object_type]['image_fixations'] ):
