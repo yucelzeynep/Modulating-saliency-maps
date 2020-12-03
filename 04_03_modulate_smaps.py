@@ -35,13 +35,14 @@ import preferences
 reload(preferences)
 
 
+    
 if __name__ == '__main__':
     
     start_time = time.time()
         
-    fpath = 'pkl_files/modul_coefs.pkl'
+    fpath = 'pkl_files/modif_coefs.pkl'
     with open(fpath,'rb') as f:
-        modul_coefs = pickle.load(f)
+        modif_coefs = pickle.load(f)
       
     baseline_center_prior = stools.GaussianMask( \
                                      constants.IMAGE_WIDTH, \
@@ -76,7 +77,7 @@ if __name__ == '__main__':
             supp_maps_all = pickle.load(f)     
             
                    
-        for o in constants.OBJECT_TYPES:
+        for o in preferences.OBJECT_TYPES_INTEREST:
             for (image_fname, supp_map_eco_pos, supp_map_random_pos, supp_map_neg) \
              in zip(supp_maps_all[a][m][o]['image_fnames'],\
                     supp_maps_all[a][m][o]['supp_map_eco_pos'],\
@@ -101,37 +102,37 @@ if __name__ == '__main__':
                     smap_eco_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)
                     
                     smap_eco_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)
 
                     smap_eco_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_eco_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)   
                         
                     smap_random_modif_f = mtools.superimpose_maps_f(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)
                     
                     smap_random_modif_m = mtools.superimpose_maps_m(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)
 
                     smap_random_modif_fm = mtools.superimpose_maps_fm(smap_orig, \
                                                   supp_map_random_pos, \
                                                   supp_map_neg,\
-                                                  modul_coefs,
+                                                  modif_coefs,
                                                   a,m,o)   
                     
                     fmap_observed_norm = stools.normalize_map(fmap_observed) 
@@ -159,15 +160,15 @@ if __name__ == '__main__':
 
                     
     # save values of saliency metrics
-    fpath = 'pkl_files/metrics_v4.pkl'
+    fpath = 'pkl_files/metrics_v5.pkl'
     with open(str(fpath), 'wb') as f:
         pickle.dump([metrics_emp2orig,\
                      metrics_emp2modif_eco,\
                      metrics_emp2modif_random], f, pickle.HIGHEST_PROTOCOL)      
          
     """
-    Time elapsed 3491.93 sec    
+    Time elapsed 2260.93 sec without judd
+    Time elapsed  27641.15 sec with judd
     """
     elapsed_time = time.time() - start_time
     print('Time elapsed  %2.2f sec' %elapsed_time)
-
