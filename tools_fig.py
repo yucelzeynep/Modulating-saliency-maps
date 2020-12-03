@@ -70,18 +70,20 @@ def plot_r2center_wrt_age(r2center_medians_wrt_age):
         plt.ylabel('N pixels to target center')
         plt.grid(linestyle='--', linewidth=1)
         
+        """
         data = np.array([range(len(r2center_medians_wrt_age[age_range])), r2center_medians_wrt_age[age_range]])
         
-        # Here we transpose your data, so to as have it in two columns    
-        # This txt file will be used in gnuplot later
+        # Here we transpose the data, so to as have it in two columns    
         data = data.T
         
+        # This txt file will be used in gnuplot later
         datafile_path = constants.OUTPUT_DIR_FIG  + \
         'r2center_medians_wrt_age_' + \
         age_range + '.txt'
         
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%d','%d'])
+        """
     
     plt.legend()
     plt.show()
@@ -98,23 +100,26 @@ def plot_r2center_wrt_motiv(r2center_medians_wrt_motiv):
     for m in constants.MOTIVATIONS:
         
         plt.plot(r2center_medians_wrt_motiv[m], label=m)
-                
+          
+        """
         #######################################################################
         # save wrt motiv
         #
         data = np.array([range(len(r2center_medians_wrt_motiv[m])),\
                          r2center_medians_wrt_motiv[m]\
                          ])
-        # Here we transpose your data, so to as have it in two columns    
-        # This txt file will be used in gnuplot later
+        
+        # Here we transpose the data, so to as have it in two columns    
         data = data.T
         
+        # This txt file will be used in gnuplot later
         datafile_path = constants.OUTPUT_DIR_FIG  + \
         'r2center_medians_wrt_motiv_'  + \
         m + '.txt'
         
         with open(datafile_path, 'w+') as datafile_id:        
             np.savetxt(datafile_id, data, fmt=['%d','%d'])
+        """
         
     plt.xlabel('time (0-1 sec)')
     plt.ylabel('N pixels to target center')
@@ -134,23 +139,23 @@ def plot_r2center_wrt_objtype(r2center_medians_wrt_objtype):
     for o in constants.OBJECT_TYPES:
         
         plt.plot(r2center_medians_wrt_objtype[o], label=o.split('_')[-1][0:3])
-
+        """
         #######################################################################
         # save wrt objtype
         #
         data = np.array([range(len(r2center_medians_wrt_objtype[o])),\
                          r2center_medians_wrt_objtype[o]\
                          ])
-        # Here we transpose your data, so to as have it in two columns    
-        # This txt file will be used in gnuplot later
+        # Here we transpose the data, so to as have it in two columns    
         data = data.T
         
+        # This txt file will be used in gnuplot later
         datafile_path = constants.OUTPUT_DIR_FIG   + \
         'r2center_medians_wrt_objtype_'  + \
         o.split('_')[-1][0:3] + '.txt'
         
         with open(datafile_path, 'w+') as datafile_id:        
-            np.savetxt(datafile_id, data, fmt=['%d','%d'])
+        """
 
     plt.xlabel('time (0-1 sec)')
     plt.ylabel('n pixels to target center')
