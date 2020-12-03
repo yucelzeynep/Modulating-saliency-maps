@@ -1,0 +1,1 @@
+This directory does not involve any files at the moment. But it is necessary to run the programs under the original directory. The data, which are computed at intermeditae stages, (e.g. random samples drawn from the mepirical ormodelled distributions, fixation maps etc.) will be saved under this directory as pickle files. 
